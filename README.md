@@ -18,7 +18,7 @@ allprojects {
 在项目的build.gradle中添加
 ```
 dependencies {
-    compile 'com.github.whvcse:JwtPermission:1.1.0'
+    compile 'com.github.whvcse:EasyCaptcha:1.1.0'
 }
 ```
 
@@ -34,7 +34,7 @@ dependencies {
 <dependencies>
    <dependency>
       <groupId>com.github.whvcse</groupId>
-      <artifactId>JwtPermission</artifactId>
+      <artifactId>EasyCaptcha</artifactId>
       <version>1.1.0</version>
    </dependency>
 </dependencies>
