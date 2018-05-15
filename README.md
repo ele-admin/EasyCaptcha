@@ -3,8 +3,8 @@ JavaWeb图形验证码，支持gif验证码，可用于基于的session的web项
 
 ## 效果展示
 ![验证码](http://115.159.40.243:8080/EasyWeb/image/captcha?codeKey=a)
-
-
+刷新页面可以重新生成验证码图片。 
+ 
 ## 导入项目
 ### gradle方式的引入
 需要先在project的build.gradle中添加：
