@@ -54,12 +54,12 @@ dependencies {
 </servlet>
 <servlet-mapping>
     <servlet-name>CaptchaServlet</servlet-name>
-    <url-pattern>/image/captcha</url-pattern>
+    <url-pattern>/images/captcha</url-pattern>
 </servlet-mapping>
 ```
 2.前端代码
 ```html
-<img src="/image/captcha" />
+<img src="/images/captcha" />
 ```
 
 ### 在*SpringMVC*中使用
@@ -77,7 +77,7 @@ public void captcha(HttpServletRequest request, HttpServletResponse response) {
 ```
 前端代码：
 ```html
-<img src="/image/captcha" />
+<img src="/images/captcha" />
 ```
 
 ### 前后端分离中使用
@@ -97,7 +97,7 @@ public void captcha(String key, HttpServletRequest request, HttpServletResponse 
 
 前后端分离也同样可以使用框架自带的servlet，使用方式如下：
 ```html
-<img src="/image/captcha?key=xxx" />
+<img src="/images/captcha?key=xxx" />
 <!-- 此处的key应该有js随机生成，并且js在验证的时候也需要传递这个key -->
 
 ```
