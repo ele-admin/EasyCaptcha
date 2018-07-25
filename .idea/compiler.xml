@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="EasyCaptcha" target="1.5" />
+      <module name="EasyCaptcha" target="6" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,4 +1,5 @@
 package com.wf.captcha;
+
 import java.io.IOException;
 import java.io.OutputStream;
 
