@@ -15,13 +15,13 @@ public class CaptchaTest {
     public void test() throws Exception {
         SpecCaptcha specCaptcha = new SpecCaptcha();
         System.out.println(specCaptcha.text());
-        specCaptcha.out(new FileOutputStream(new File("D:/a/aa.png")));
+        //specCaptcha.out(new FileOutputStream(new File("D:/a/aa.png")));
     }
 
     @Test
     public void testGIf() throws Exception {
         GifCaptcha specCaptcha = new GifCaptcha(130, 48, 5);
         System.out.println(specCaptcha.text());
-        specCaptcha.out(new FileOutputStream(new File("D:/a/aa.gif")));
+        //specCaptcha.out(new FileOutputStream(new File("D:/a/aa.gif")));
     }
 }

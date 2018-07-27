@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
 
     <name>EasyCaptcha</name>
-    <description>Java web图形验证码，支持gif验证码。</description>
+    <description>Java图形验证码，支持gif验证码。</description>
     <url>https://github.com/whvcse/EasyCaptcha</url>
 
     <licenses>
