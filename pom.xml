@@ -5,7 +5,7 @@
     <groupId>com.github.whvcse</groupId>
 
     <artifactId>EasyCaptcha</artifactId>
-    <version>1.2.0-RELEASE</version>
+    <version>1.2.5-RELEASE</version>
     <packaging>jar</packaging>
 
     <name>EasyCaptcha</name>

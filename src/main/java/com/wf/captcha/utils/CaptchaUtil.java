@@ -74,11 +74,20 @@ public class CaptchaUtil {
     }
 
     /**
+     * 清除session中的验证码
+     *
+     * @param request HttpServletRequest
+     */
+    public static void clear(HttpServletRequest request) {
+        request.getSession().removeAttribute(SESSION_KEY);
+    }
+
+    /**
      * 设置相应头
      *
      * @param response HttpServletResponse
      */
-    private static void setHeader(HttpServletResponse response) {
+    public static void setHeader(HttpServletResponse response) {
         response.setContentType("image/gif");
         response.setHeader("Pragma", "No-cache");
         response.setHeader("Cache-Control", "no-cache");

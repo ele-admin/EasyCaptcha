@@ -7,7 +7,7 @@ import java.util.Random;
  * Created by 王帆 on 2018-07-27 上午 10:08.
  */
 public class Randoms {
-    private static final Random RANDOM = new Random();
+    protected static final Random RANDOM = new Random();
     // 定义验证码字符.去除了O和I等容易混淆的字母
     public static final char ALPHA[] = {'2', '3', '4', '5', '6', '7', '8', '9',
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'G', 'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
