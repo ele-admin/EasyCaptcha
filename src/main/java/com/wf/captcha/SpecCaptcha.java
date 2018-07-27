@@ -14,9 +14,11 @@ import javax.imageio.ImageIO;
 public class SpecCaptcha extends Captcha {
 
     public SpecCaptcha() {
+        setFont(new Font(font.getFontName(), Font.ITALIC, font.getSize()));
     }
 
     public SpecCaptcha(int width, int height) {
+        this();
         setWidth(width);
         setHeight(height);
     }
@@ -72,7 +74,7 @@ public class SpecCaptcha extends Captcha {
                 g.setColor(color(100, 250));
                 g.drawOval(num(width), num(height), 5 + num(25), 5 + num(25));
             }
-            g.setFont(new Font(font.getFontName(), Font.ITALIC, font.getSize()));
+            g.setFont(font);
             int h = height - ((height - font.getSize()) >> 1);
             int w = width / len;
             // 画字符串

@@ -1,7 +1,5 @@
 # EasyCaptcha
 
-![GitHub release](https://img.shields.io/github/release/whvcse/EasyCaptcha.svg?style=flat-square)
-![GitHub Release Date](https://img.shields.io/github/release-date/whvcse/EasyCaptcha.svg?style=flat-square)
 ![JitPack](https://img.shields.io/jitpack/v/whvcse/EasyCaptcha.svg?style=flat-square)
 ![Hex.pm](https://img.shields.io/hexpm/l/plug.svg?style=flat-square)
 
