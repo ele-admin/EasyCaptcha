@@ -14,6 +14,10 @@ public abstract class Captcha extends Randoms {
     protected int width = 130; // 验证码显示宽度
     protected int height = 48; // 验证码显示高度
     private String chars = null; // 当前验证码
+    protected int charType = TYPE_DEFAULT;  // 验证码类型，1字母数字混合，2纯数字，3纯字母
+    public static final int TYPE_DEFAULT = 1;  // 字母数字混合
+    public static final int TYPE_ONLY_NUMBER = 2;  // 纯数字
+    public static final int TYPE_ONLY_CHAR = 3;  // 纯字母
 
     /**
      * 生成随机验证码
@@ -21,9 +25,20 @@ public abstract class Captcha extends Randoms {
      * @return 验证码字符数组
      */
     protected char[] alphas() {
+        "".toLowerCase();
+        "".toUpperCase();
         char[] cs = new char[len];
         for (int i = 0; i < len; i++) {
-            cs[i] = alpha();
+            switch (charType) {
+                case 2:
+                    cs[i] = alpha(numMaxIndex);
+                    break;
+                case 3:
+                    cs[i] = alpha(charMinIndex, charMaxIndex);
+                    break;
+                default:
+                    cs[i] = alpha();
+            }
         }
         chars = new String(cs);
         return cs;
@@ -114,5 +129,13 @@ public abstract class Captcha extends Randoms {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public int getCharType() {
+        return charType;
+    }
+
+    public void setCharType(int charType) {
+        this.charType = charType;
     }
 }

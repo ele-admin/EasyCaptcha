@@ -12,6 +12,9 @@ public class Randoms {
     public static final char ALPHA[] = {'2', '3', '4', '5', '6', '7', '8', '9',
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'G', 'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+    protected static final int numMaxIndex = 8;  // 数字的最大索引，不包括最大值
+    protected static final int charMinIndex = numMaxIndex;  // 字符的最小索引，包括最小值
+    protected static final int charMaxIndex = ALPHA.length;  // 字符的最大索引，不包括最大值
 
     /**
      * 产生两个数之间的随机数

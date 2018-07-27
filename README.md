@@ -164,6 +164,9 @@ public class Test {
         // 设置字体
         gifCaptcha.setFont(new Font("Verdana", Font.PLAIN, 32));  // 有默认字体，可以不用设置
         
+        // 设置类型，纯数字、纯字母、字母数字混合
+        gifCaptcha.setCharType(Captcha.TYPE_ONLY_NUMBER);
+        
         // 生成的验证码
         String code = gifCaptcha.text();
         
@@ -187,6 +190,9 @@ public class Test {
         // 设置字体
         specCaptcha.setFont(new Font("Verdana", Font.PLAIN, 32));  // 有默认字体，可以不用设置
         
+        // 设置类型，纯数字、纯字母、字母数字混合
+        specCaptcha.setCharType(Captcha.TYPE_ONLY_NUMBER);
+        
         // 生成的验证码
         String code = specCaptcha.text();
         
@@ -195,3 +201,13 @@ public class Test {
     }
 }
 ```
+
+### 4.3.验证码类型
+
+ 类型 | 描述 
+ :--- | :--- 
+ TYPE_DEFAULT | 数字和字母混合 
+ TYPE_ONLY_NUMBER | 纯数字
+ TYPE_ONLY_CHAR | 纯字母 
+
+

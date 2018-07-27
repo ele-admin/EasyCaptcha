@@ -14,9 +14,12 @@ public class CaptchaTest {
 
     @Test
     public void test() throws Exception {
-        SpecCaptcha specCaptcha = new SpecCaptcha();
-        System.out.println(specCaptcha.text());
-        //specCaptcha.out(new FileOutputStream(new File("D:/a/aa.png")));
+        for (int i = 0; i < 100; i++) {
+            SpecCaptcha specCaptcha = new SpecCaptcha();
+            specCaptcha.setCharType(Captcha.TYPE_ONLY_NUMBER);
+            System.out.println(specCaptcha.text());
+            specCaptcha.out(new FileOutputStream(new File("D:/a/aa" + i + ".png")));
+        }
     }
 
     @Test
