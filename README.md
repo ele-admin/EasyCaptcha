@@ -1,8 +1,14 @@
 # EasyCaptcha
 
+![GitHub release](https://img.shields.io/github/release/whvcse/EasyCaptcha.svg?style=flat-square)
+![GitHub Release Date](https://img.shields.io/github/release-date/whvcse/EasyCaptcha.svg?style=flat-square)
+![JitPack](https://img.shields.io/jitpack/v/whvcse/EasyCaptcha.svg?style=flat-square)
+![Hex.pm](https://img.shields.io/hexpm/l/plug.svg?style=flat-square)
+
+
 ## 1.简介
 
-&emsp;&emsp;Java图形验证码，支持gif验证码，可用于Java Web、JavaSE和Android项目。
+&emsp;&emsp;Java图形验证码，支持gif验证码，可用于Java Web、JavaSE项目。
 
 
 ## 2.效果展示
@@ -146,4 +152,48 @@ public class MainController {
 
 ## 4.更多设置
 
-###
+### 4.1.使用Gif验证码
+
+```java
+public class Test {
+    
+    public static void main(String[] args) {
+        OutputStream outputStream = new FileOutputStream(new File("D:/a/aa.gif"));
+        
+        // 三个参数分别为宽、高、位数
+        GifCaptcha gifCaptcha = new GifCaptcha(130, 48, 5);
+        
+        // 设置字体
+        gifCaptcha.setFont(new Font("Verdana", Font.PLAIN, 32));  // 有默认字体，可以不用设置
+        
+        // 生成的验证码
+        String code = gifCaptcha.text();
+        
+        // 输出图片流
+        gifCaptcha.out(outputStream);
+    }
+}
+```
+
+### 4.2.使用png验证码
+
+```java
+public class Test {
+    
+    public static void main(String[] args) {
+        OutputStream outputStream = new FileOutputStream(new File("D:/a/aa.gif"));
+        
+        // 三个参数分别为宽、高、位数
+        SpecCaptcha specCaptcha = new SpecCaptcha(130, 48, 5);
+        
+        // 设置字体
+        specCaptcha.setFont(new Font("Verdana", Font.PLAIN, 32));  // 有默认字体，可以不用设置
+        
+        // 生成的验证码
+        String code = specCaptcha.text();
+        
+        // 输出图片流
+        specCaptcha.out(outputStream);
+    }
+}
+```

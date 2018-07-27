@@ -2,6 +2,7 @@ package com.wf.captcha;
 
 import org.junit.Test;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -20,8 +21,8 @@ public class CaptchaTest {
 
     @Test
     public void testGIf() throws Exception {
-        GifCaptcha specCaptcha = new GifCaptcha(130, 48, 5);
-        System.out.println(specCaptcha.text());
-        //specCaptcha.out(new FileOutputStream(new File("D:/a/aa.gif")));
+        GifCaptcha gifCaptcha = new GifCaptcha(130, 48, 5);
+        System.out.println(gifCaptcha.text());
+        //gifCaptcha.out(new FileOutputStream(new File("D:/a/aa.gif")));
     }
 }
