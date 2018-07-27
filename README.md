@@ -58,7 +58,7 @@ dependencies {
        <dependency>
           <groupId>com.github.whvcse</groupId>
           <artifactId>EasyCaptcha</artifactId>
-          <version>1.1.0</version>
+          <version>1.2.0</version>
        </dependency>
     </dependencies>
 </project>
