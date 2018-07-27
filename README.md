@@ -182,7 +182,7 @@ public class Test {
 public class Test {
     
     public static void main(String[] args) {
-        OutputStream outputStream = new FileOutputStream(new File("D:/a/aa.gif"));
+        OutputStream outputStream = new FileOutputStream(new File("D:/a/aa.png"));
         
         // 三个参数分别为宽、高、位数
         SpecCaptcha specCaptcha = new SpecCaptcha(130, 48, 5);
