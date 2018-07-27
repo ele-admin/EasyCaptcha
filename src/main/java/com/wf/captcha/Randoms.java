@@ -3,41 +3,64 @@ package com.wf.captcha;
 import java.util.Random;
 
 /**
- * <p>随机工具类</p>
- *
- * @author: wuhongjun
- * @version:1.0
+ * 随机数工具类
+ * Created by 王帆 on 2018-07-27 上午 10:08.
  */
-public class Randoms
-{
+public class Randoms {
     private static final Random RANDOM = new Random();
-    //定义验证码字符.去除了O和I等容易混淆的字母
-    public static final char ALPHA[]={'A','B','C','D','E','F','G','H','G','K','M','N','P','Q','R','S','T','U','V','W','X','Y','Z'
-            ,'a','b','c','d','e','f','g','h','i','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z','2','3','4','5','6','7','8','9'};
+    // 定义验证码字符.去除了O和I等容易混淆的字母
+    public static final char ALPHA[] = {'2', '3', '4', '5', '6', '7', '8', '9',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'G', 'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
     /**
      * 产生两个数之间的随机数
-     * @param min 小数
-     * @param max 比min大的数
-     * @return int 随机数字
+     *
+     * @param min 最小值
+     * @param max 最大值
+     * @return 随机数
      */
-    public static int num(int min, int max)
-    {
+    public static int num(int min, int max) {
         return min + RANDOM.nextInt(max - min);
     }
 
     /**
-     * 产生0--num的随机数,不包括num
-     * @param num 数字
-     * @return int 随机数字
+     * 产生0-num的随机数,不包括num
+     *
+     * @param num 最大值
+     * @return 随机数
      */
-    public static int num(int num)
-    {
+    public static int num(int num) {
         return RANDOM.nextInt(num);
     }
 
-    public static char alpha()
-    {
-        return ALPHA[num(0, ALPHA.length)];
+    /**
+     * 返回ALPHA中的随机字符
+     *
+     * @return 随机字符
+     */
+    public static char alpha() {
+        return ALPHA[num(ALPHA.length)];
+    }
+
+    /**
+     * 返回ALPHA中第0位到第num位的随机字符
+     *
+     * @param num 到第几位结束
+     * @return 随机字符
+     */
+    public static char alpha(int num) {
+        return ALPHA[num(num)];
+    }
+
+    /**
+     * 返回ALPHA中第min位到第max位的随机字符
+     *
+     * @param min 从第几位开始
+     * @param max 到第几位结束
+     * @return 随机字符
+     */
+    public static char alpha(int min, int max) {
+        return ALPHA[num(min, max)];
     }
 }

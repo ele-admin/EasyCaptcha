@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
+ * Gif生成工具
  * Class AnimatedGifEncoder - Encodes a GIF file consisting of one or
  * more frames.
  * <pre>
@@ -25,13 +26,8 @@ import java.io.OutputStream;
  * for any purpose, however, refer to the Unisys LZW patent for restrictions
  * on use of the associated Encoder class.  Please forward any corrections
  * to questions at fmsware.com.
- *
- * @author wuhongjun
- * @version 1.03 November 2003
- *
  */
-public class GifEncoder
-{
+public class GifEncoder {
     protected int width; // image size
     protected int height;
     protected Color transparent = null; // transparent color if given
@@ -67,6 +63,7 @@ public class GifEncoder
      * Sets the GIF frame disposal code for the last added frame
      * and any subsequent frames.  Default is 0 if no transparent
      * color has been set, otherwise 2.
+     *
      * @param code int disposal code.
      */
     public void setDispose(int code) {
@@ -322,7 +319,6 @@ public class GifEncoder
 
     /**
      * Returns index of palette color closest to c
-     *
      */
     protected int findClosest(Color c) {
         if (colorTab == null) return -1;
@@ -332,7 +328,7 @@ public class GifEncoder
         int minpos = 0;
         int dmin = 256 * 256 * 256;
         int len = colorTab.length;
-        for (int i = 0; i < len;) {
+        for (int i = 0; i < len; ) {
             int dr = r - (colorTab[i++] & 0xff);
             int dg = g - (colorTab[i++] & 0xff);
             int db = b - (colorTab[i] & 0xff);
@@ -473,7 +469,7 @@ public class GifEncoder
     }
 
     /**
-     *    Write 16-bit value to output stream, LSB first
+     * Write 16-bit value to output stream, LSB first
      */
     protected void writeShort(int value) throws IOException {
         out.write(value & 0xff);

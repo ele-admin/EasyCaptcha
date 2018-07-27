@@ -4,40 +4,20 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * @author: wuhongjun
- * @version:1.0
+ *
  */
-public class Encoder
-{
+public class Encoder {
     private static final int EOF = -1;
-
+    // 图片的宽高
     private int imgW, imgH;
     private byte[] pixAry;
-    private int initCodeSize;
-    private int remaining;
-    private int curPixel;
-
-    // GIFCOMPR.C       - GIF Image compression routines
-    //
-    // Lempel-Ziv compression based on 'compress'.  GIF modifications by
-    // David Rowley (mgardi@watdcsu.waterloo.edu)
-
-    // General DEFINEs
+    private int initCodeSize;  // 验证码位数
+    private int remaining;  // 剩余数量
+    private int curPixel;  // 像素
 
     static final int BITS = 12;
 
-    static final int HSIZE = 5003; // 80% occupancy
-
-    // GIF Image compression - modified 'compress'
-    //
-    // Based on: compress.c - File compression ala IEEE Computer, June 1984.
-    //
-    // By Authors:  Spencer W. Thomas      (decvax!harpo!utah-cs!utah-gr!thomas)
-    //              Jim McKie              (decvax!mcvax!jim)
-    //              Steve Davies           (decvax!vax135!petsd!peora!srd)
-    //              Ken Turkowski          (decvax!decwrl!turtlevax!ken)
-    //              James A. Woods         (decvax!ihnp4!ames!jaw)
-    //              Joe Orost              (decvax!vax135!petsd!joe)
+    static final int HSIZE = 5003; // 80% 占用率
 
     int n_bits; // number of bits/code
     int maxbits = BITS; // user settable max # bits/code
@@ -108,7 +88,7 @@ public class Encoder
                     0x1FFF,
                     0x3FFF,
                     0x7FFF,
-                    0xFFFF };
+                    0xFFFF};
 
     // Number of characters so far in this 'packet'
     int a_count;
@@ -184,7 +164,8 @@ public class Encoder
 
         output(ClearCode, outs);
 
-        outer_loop : while ((c = nextPixel()) != EOF) {
+        outer_loop:
+        while ((c = nextPixel()) != EOF) {
             fcode = (c << maxbits) + ent;
             i = (c << hshift) ^ ent; // xor hashing
 

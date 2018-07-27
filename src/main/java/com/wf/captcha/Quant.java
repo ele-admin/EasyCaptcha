@@ -1,24 +1,20 @@
 package com.wf.captcha;
 
 /**
- * <p></p>
  *
- * @author: wuhongjun
- * @version:1.0
  */
-public class Quant
-{
+public class Quant {
     protected static final int netsize = 256; /* number of colours used */
 
     /* four primes near 500 - assume no image has a length so large */
-	/* that it is divisible by all four primes */
+    /* that it is divisible by all four primes */
     protected static final int prime1 = 499;
     protected static final int prime2 = 491;
     protected static final int prime3 = 487;
     protected static final int prime4 = 503;
 
     protected static final int minpicturebytes = (3 * prime4);
-	/* minimum size for input image */
+    /* minimum size for input image */
 
 	/* Program Skeleton
 	   ----------------
@@ -80,13 +76,13 @@ public class Quant
     protected int[][] network; /* the network itself - [netsize][4] */
 
     protected int[] netindex = new int[256];
-	/* for network lookup - really 256 */
+    /* for network lookup - really 256 */
 
     protected int[] bias = new int[netsize];
     /* bias and freq arrays for learning */
     protected int[] freq = new int[netsize];
     protected int[] radpower = new int[initrad];
-	/* radpower for precomputation */
+    /* radpower for precomputation */
 
     /* Initialise network in range (0,0,0) to (255,255,255) and set parameters
        ----------------------------------------------------------------------- */
@@ -139,7 +135,7 @@ public class Quant
             p = network[i];
             smallpos = i;
             smallval = p[1]; /* index on g */
-			/* find smallest in i..netsize-1 */
+            /* find smallest in i..netsize-1 */
             for (j = i + 1; j < netsize; j++) {
                 q = network[j];
                 if (q[1] < smallval) { /* index on g */
@@ -148,7 +144,7 @@ public class Quant
                 }
             }
             q = network[smallpos];
-			/* swap p (i) and q (smallpos) entries */
+            /* swap p (i) and q (smallpos) entries */
             if (i != smallpos) {
                 j = q[0];
                 q[0] = p[0];
@@ -163,7 +159,7 @@ public class Quant
                 q[3] = p[3];
                 p[3] = j;
             }
-			/* smallval entry is now in position i */
+            /* smallval entry is now in position i */
             if (smallval != previouscol) {
                 netindex[previouscol] = (startpos + i) >> 1;
                 for (j = previouscol + 1; j < smallval; j++)
@@ -320,6 +316,7 @@ public class Quant
         }
         return (best);
     }
+
     public byte[] process() {
         learn();
         unbiasnet();
@@ -385,7 +382,7 @@ public class Quant
        ---------------------------------------------------- */
     protected void altersingle(int alpha, int i, int b, int g, int r) {
 
-		/* alter hit neuron */
+        /* alter hit neuron */
         int[] n = network[i];
         n[0] -= (alpha * (n[0] - b)) / initalpha;
         n[1] -= (alpha * (n[1] - g)) / initalpha;
@@ -396,10 +393,10 @@ public class Quant
        ---------------------------- */
     protected int contest(int b, int g, int r) {
 
-		/* finds closest neuron (min dist) and updates freq */
-		/* finds best neuron (min dist-bias) and returns position */
-		/* for frequently chosen neurons, freq[i] is high and bias[i] is negative */
-		/* bias[i] = gamma*((1/netsize)-freq[i]) */
+        /* finds closest neuron (min dist) and updates freq */
+        /* finds best neuron (min dist-bias) and returns position */
+        /* for frequently chosen neurons, freq[i] is high and bias[i] is negative */
+        /* bias[i] = gamma*((1/netsize)-freq[i]) */
 
         int i, dist, a, biasdist, betafreq;
         int bestpos, bestbiaspos, bestd, bestbiasd;
