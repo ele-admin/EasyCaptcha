@@ -58,7 +58,7 @@ allprojects {
 在项目的build.gradle中添加
 ```text
 dependencies {
-    compile 'com.github.whvcse:EasyCaptcha:1.2.0'
+    compile 'com.github.whvcse:EasyCaptcha:1.2.5'
 }
 ```
 
@@ -77,7 +77,7 @@ dependencies {
        <dependency>
           <groupId>com.github.whvcse</groupId>
           <artifactId>EasyCaptcha</artifactId>
-          <version>1.2.0</version>
+          <version>1.2.5</version>
        </dependency>
     </dependencies>
 </project>
