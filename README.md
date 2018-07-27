@@ -6,7 +6,7 @@
 
 ## 1.简介
 
-&emsp;&emsp;Java图形验证码，支持gif验证码，可用于Java Web、JavaSE项目。
+&emsp;&emsp;Java图形验证码，支持gif验证码、中文验证码，可用于Java Web、JavaSE项目。
 
 
 ## 2.效果展示
