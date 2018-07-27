@@ -9,10 +9,10 @@ import java.io.OutputStream;
  * Created by 王帆 on 2018-07-27 上午 10:08.
  */
 public abstract class Captcha extends Randoms {
-    protected Font font = new Font("Verdana", Font.ITALIC | Font.BOLD, 28); // 字体
+    protected Font font = new Font("Verdana", Font.PLAIN, 32); // 字体
     protected int len = 5; // 验证码随机字符长度
-    protected int width = 150; // 验证码显示宽度
-    protected int height = 40; // 验证码显示高度
+    protected int width = 130; // 验证码显示宽度
+    protected int height = 48; // 验证码显示高度
     private String chars = null; // 当前验证码
 
     /**

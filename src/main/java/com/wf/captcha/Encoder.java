@@ -97,6 +97,13 @@ public class Encoder {
     byte[] accum = new byte[256];
 
     //----------------------------------------------------------------------------
+
+    /**
+     * @param width       宽度
+     * @param height      高度
+     * @param pixels      像素
+     * @param color_depth 颜色
+     */
     Encoder(int width, int height, byte[] pixels, int color_depth) {
         imgW = width;
         imgH = height;
@@ -106,6 +113,12 @@ public class Encoder {
 
     // Add a character to the end of the current packet, and if it is 254
     // characters, flush the packet to disk.
+
+    /**
+     * @param c    字节
+     * @param outs 输出流
+     * @throws IOException IO异常
+     */
     void char_out(byte c, OutputStream outs) throws IOException {
         accum[a_count++] = c;
         if (a_count >= 254)
@@ -115,6 +128,11 @@ public class Encoder {
     // Clear out the hash table
 
     // table clear for block compress
+
+    /**
+     * @param outs 输出流
+     * @throws IOException IO异常
+     */
     void cl_block(OutputStream outs) throws IOException {
         cl_hash(hsize);
         free_ent = ClearCode + 2;
@@ -124,11 +142,20 @@ public class Encoder {
     }
 
     // reset code table
+
+    /**
+     * @param hsize int
+     */
     void cl_hash(int hsize) {
         for (int i = 0; i < hsize; ++i)
             htab[i] = -1;
     }
 
+    /**
+     * @param init_bits int
+     * @param outs      输出流
+     * @throws IOException IO异常
+     */
     void compress(int init_bits, OutputStream outs) throws IOException {
         int fcode;
         int i /* = 0 */;
@@ -201,6 +228,11 @@ public class Encoder {
     }
 
     //----------------------------------------------------------------------------
+
+    /**
+     * @param os 输出流
+     * @throws IOException IO异常
+     */
     void encode(OutputStream os) throws IOException {
         os.write(initCodeSize); // write "initial code size" byte
 
@@ -213,6 +245,11 @@ public class Encoder {
     }
 
     // Flush the packet to disk, and reset the accumulator
+
+    /**
+     * @param outs 输出流
+     * @throws IOException IO异常
+     */
     void flush_char(OutputStream outs) throws IOException {
         if (a_count > 0) {
             outs.write(a_count);
@@ -221,6 +258,10 @@ public class Encoder {
         }
     }
 
+    /**
+     * @param n_bits int
+     * @return int
+     */
     final int MAXCODE(int n_bits) {
         return (1 << n_bits) - 1;
     }
@@ -228,6 +269,10 @@ public class Encoder {
     //----------------------------------------------------------------------------
     // Return the next pixel from the image
     //----------------------------------------------------------------------------
+
+    /**
+     * @return int
+     */
     private int nextPixel() {
         if (remaining == 0)
             return EOF;
@@ -239,6 +284,11 @@ public class Encoder {
         return pix & 0xff;
     }
 
+    /**
+     * @param code int
+     * @param outs 输出流
+     * @throws IOException IO异常
+     */
     void output(int code, OutputStream outs) throws IOException {
         cur_accum &= masks[cur_bits];
 

@@ -17,6 +17,10 @@ public class CaptchaUtil {
 
     /**
      * 验证验证码
+     *
+     * @param code    用户输入的验证码
+     * @param request HttpServletRequest
+     * @return 是否正确
      */
     public static boolean ver(String code, HttpServletRequest request) {
         if (code != null && !code.trim().isEmpty()) {
@@ -29,26 +33,26 @@ public class CaptchaUtil {
     /**
      * 输出验证码
      *
-     * @param request
-     * @param response
-     * @throws IOException
+     * @param request  HttpServletRequest
+     * @param response HttpServletResponse
+     * @throws IOException IO异常
      */
     public static void out(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        out(130, 38, 5, request, response);
+        out(5, request, response);
     }
 
     /**
      * 输出验证码
      *
      * @param len      长度
-     * @param request
-     * @param response
-     * @throws IOException
+     * @param request  HttpServletRequest
+     * @param response HttpServletResponse
+     * @throws IOException IO异常
      */
     public static void out(int len, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        out(130, 38, len, request, response);
+        out(130, 48, len, request, response);
     }
 
     /**
@@ -57,14 +61,14 @@ public class CaptchaUtil {
      * @param width    宽度
      * @param height   高度
      * @param len      长度
-     * @param request
-     * @param response
-     * @throws IOException
+     * @param request  HttpServletRequest
+     * @param response HttpServletResponse
+     * @throws IOException IO异常
      */
     public static void out(int width, int height, int len, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         setHeader(response);
-        Captcha captcha = new GifCaptcha(130, 38, 5);
+        Captcha captcha = new GifCaptcha(width, height, len);
         request.getSession().setAttribute(SESSION_KEY, captcha.text().toLowerCase());
         captcha.out(response.getOutputStream());
     }
@@ -72,7 +76,7 @@ public class CaptchaUtil {
     /**
      * 设置相应头
      *
-     * @param response
+     * @param response HttpServletResponse
      */
     private static void setHeader(HttpServletResponse response) {
         response.setContentType("image/gif");

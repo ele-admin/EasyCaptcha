@@ -79,7 +79,6 @@ public class GifEncoder {
      * image is added.
      *
      * @param iter int number of iterations.
-     * @return
      */
     public void setRepeat(int iter) {
         if (iter >= 0) {
@@ -168,6 +167,8 @@ public class GifEncoder {
      * Flushes any pending data and closes output file.
      * If writing to an OutputStream, the stream is not
      * closed.
+     *
+     * @return boolean
      */
     public boolean finish() {
         if (!started) return false;
@@ -219,7 +220,6 @@ public class GifEncoder {
      * than 20 do not yield significant improvements in speed.
      *
      * @param quality int greater than 0.
-     * @return
      */
     public void setQuality(int quality) {
         if (quality < 1) quality = 1;
@@ -319,6 +319,9 @@ public class GifEncoder {
 
     /**
      * Returns index of palette color closest to c
+     *
+     * @param c color
+     * @return int
      */
     protected int findClosest(Color c) {
         if (colorTab == null) return -1;
@@ -365,6 +368,8 @@ public class GifEncoder {
 
     /**
      * Writes Graphic Control Extension
+     *
+     * @throws IOException IO异常
      */
     protected void writeGraphicCtrlExt() throws IOException {
         out.write(0x21); // extension introducer
@@ -396,6 +401,8 @@ public class GifEncoder {
 
     /**
      * Writes Image Descriptor
+     *
+     * @throws IOException IO异常
      */
     protected void writeImageDesc() throws IOException {
         out.write(0x2c); // image separator
@@ -419,6 +426,8 @@ public class GifEncoder {
 
     /**
      * Writes Logical Screen Descriptor
+     *
+     * @throws IOException IO异常
      */
     protected void writeLSD() throws IOException {
         // logical screen size
@@ -437,6 +446,8 @@ public class GifEncoder {
     /**
      * Writes Netscape application extension to define
      * repeat count.
+     *
+     * @throws IOException IO异常
      */
     protected void writeNetscapeExt() throws IOException {
         out.write(0x21); // extension introducer
@@ -451,6 +462,8 @@ public class GifEncoder {
 
     /**
      * Writes color table
+     *
+     * @throws IOException IO异常
      */
     protected void writePalette() throws IOException {
         out.write(colorTab, 0, colorTab.length);
@@ -462,6 +475,8 @@ public class GifEncoder {
 
     /**
      * Encodes and writes pixel data
+     *
+     * @throws IOException IO异常
      */
     protected void writePixels() throws IOException {
         Encoder encoder = new Encoder(width, height, indexedPixels, colorDepth);
@@ -470,6 +485,9 @@ public class GifEncoder {
 
     /**
      * Write 16-bit value to output stream, LSB first
+     *
+     * @param value int
+     * @throws IOException IO异常
      */
     protected void writeShort(int value) throws IOException {
         out.write(value & 0xff);
@@ -478,6 +496,9 @@ public class GifEncoder {
 
     /**
      * Writes string to output stream
+     *
+     * @param s string
+     * @throws IOException IO异常
      */
     protected void writeString(String s) throws IOException {
         for (int i = 0; i < s.length(); i++) {

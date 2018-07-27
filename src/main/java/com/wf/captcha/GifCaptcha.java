@@ -1,9 +1,6 @@
 package com.wf.captcha;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -82,12 +79,26 @@ public class GifCaptcha extends Captcha {
         int h = height - ((height - font.getSize()) >> 1);
         int w = width / len;
         g2d.setFont(font);
+        // 随机画干扰线
+        for (int i = 0; i < 8; i++) {
+            int x1 = num(-10, width - 10);
+            int y1 = num(5, height - 5);
+            int x2 = num(10, width + 10);
+            int y2 = num(2, height - 2);
+            g2d.setColor(color(150, 250));
+            g2d.setStroke(new BasicStroke(1.3f));
+            g2d.drawLine(x1, y1, x2, y2);
+            // 画干扰圆圈
+            g2d.setColor(color(100, 250));
+            g2d.setStroke(new BasicStroke(1.0f));
+            g2d.drawOval(num(width), num(height), 5 + num(10), 5 + num(10));
+        }
+        // 画验证码
         for (int i = 0; i < len; i++) {
             ac3 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, getAlpha(flag, i));
             g2d.setComposite(ac3);
             g2d.setColor(fontcolor[i]);
-            g2d.drawOval(num(width), num(height), 5 + num(10), 5 + num(10));
-            g2d.drawString(String.valueOf(strs[i]), (width - (len - i) * w) + (w - font.getSize()) + 1, h - 4);
+            g2d.drawString(String.valueOf(strs[i]), (width - (len - i) * w) + (w - font.getSize()) + num(7, 11), h - num(2, 6));
         }
         g2d.dispose();
         return image;
