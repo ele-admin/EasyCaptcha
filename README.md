@@ -85,7 +85,7 @@ dependencies {
 ```
 
 ### 2.3.jar包下载
-[EasyCaptcha-1.2.0.jar](https://github.com/whvcse/EasyCaptcha/releases)
+[EasyCaptcha-1.3.0.jar](https://gitee.com/whvse/EasyCaptcha/releases)
 
 
 ---
@@ -325,4 +325,3 @@ public class Test {
 ## 5.自定义效果
 
 参考源代码中的SpecCaptcha和GifCaptcha继承Captcha即可。
-
