@@ -57,32 +57,50 @@ public class SpecCaptcha extends Captcha {
         try {
             BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
             Graphics2D g = (Graphics2D) bi.getGraphics();
-            AlphaComposite ac3;
-            int len = strs.length;
             g.setColor(Color.WHITE);
             g.fillRect(0, 0, width, height);
+            // 抗锯齿
+            g.setFont(font);
+            g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             // 随机画干扰线
             for (int i = 0; i < 12; i++) {
+                g.setColor(color(150, 250));
+                g.setStroke(new BasicStroke(1.1f + RANDOM.nextFloat() / 2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
                 int x1 = num(-10, width - 10);
                 int y1 = num(5, height - 5);
                 int x2 = num(10, width + 10);
                 int y2 = num(2, height - 2);
-                g.setColor(color(150, 250));
-                g.setStroke(new BasicStroke(1.3f));
                 g.drawLine(x1, y1, x2, y2);
                 // 画干扰圆圈
                 g.setColor(color(100, 250));
                 g.drawOval(num(width), num(height), 5 + num(25), 5 + num(25));
             }
-            g.setFont(font);
-            int h = height - ((height - font.getSize()) >> 1);
-            int w = width / len;
             // 画字符串
-            for (int i = 0; i < len; i++) {
-                ac3 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f);// 指定透明度
-                g.setComposite(ac3);
+            AlphaComposite ac3 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f);// 指定透明度
+            g.setComposite(ac3);
+            int hp = (height - font.getSize()) >> 1;
+            int h = height - hp;
+            int w = width / strs.length;
+            int sp = (w - font.getSize()) / 2;
+            for (int i = 0; i < strs.length; i++) {
                 g.setColor(new Color(20 + num(110), 20 + num(110), 20 + num(110)));
-                g.drawString(String.valueOf(strs[i]), (width - (len - i) * w) + (w - font.getSize()) + num(7, 11), h - num(2, 6));
+                // 计算坐标
+                int x = i * w + sp + num(-Math.abs(sp), Math.abs(sp));
+                int y = h + num(-Math.abs(hp), Math.abs(hp));
+                if (x < 0) {
+                    x = 0;
+                }
+                if (x + font.getSize() > width) {
+                    x = width - font.getSize();
+                }
+                if (y > height) {
+                    y = height;
+                }
+                if (y - font.getSize() < 0) {
+                    y = font.getSize();
+                }
+                System.out.println(x + "--" + y);
+                g.drawString(String.valueOf(strs[i]), x, y);
             }
             ImageIO.write(bi, "png", out);
             out.flush();

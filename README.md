@@ -13,19 +13,19 @@
 
 **gif效果：**
 
-![验证码](https://ws1.sinaimg.cn/large/006a7GCKgy1ftog813jz9g303m01cjrc.jpg) 
+![验证码](https://ws1.sinaimg.cn/large/006a7GCKly1ftpd30vgc2g303m01c0st.jpg) 
 &emsp;&emsp;
-![验证码](https://ws1.sinaimg.cn/large/006a7GCKgy1ftogh8z6hug303m01cdfs.jpg)
+![验证码](https://ws1.sinaimg.cn/large/006a7GCKly1ftpd22ixh9g303m01c3yj.jpg)
 &emsp;&emsp;
-![验证码](https://ws1.sinaimg.cn/large/006a7GCKgy1ftoghsymykg303m01c3yg.jpg)
+![验证码](https://ws1.sinaimg.cn/large/006a7GCKly1ftpd2k0gjug303m01ct8t.jpg)
 
 **png效果：**
 
-![验证码](https://ws1.sinaimg.cn/large/006a7GCKgy1ftogec24tbj303m01cmwx.jpg)
+![验证码](https://ws1.sinaimg.cn/large/006a7GCKly1ftpd09lqpaj303m01cwee.jpg)
 &emsp;&emsp;
-![验证码](https://ws1.sinaimg.cn/large/006a7GCKgy1ftogf2vvodj303m01cjr5.jpg)
+![验证码](https://ws1.sinaimg.cn/large/006a7GCKly1ftpd0tj6nhj303m01ct8m.jpg)
 &emsp;&emsp;
-![验证码](https://ws1.sinaimg.cn/large/006a7GCKgy1ftogfxh2rwj303m01cjr5.jpg)
+![验证码](https://ws1.sinaimg.cn/large/006a7GCKly1ftpd1cw3pcj303m01c0sn.jpg)
 
 
 **中文验证码：**
@@ -58,7 +58,7 @@ allprojects {
 在项目的build.gradle中添加
 ```text
 dependencies {
-    compile 'com.github.whvcse:EasyCaptcha:1.2.5'
+    compile 'com.github.whvcse:EasyCaptcha:1.3.0'
 }
 ```
 
@@ -77,7 +77,7 @@ dependencies {
        <dependency>
           <groupId>com.github.whvcse</groupId>
           <artifactId>EasyCaptcha</artifactId>
-          <version>1.2.5</version>
+          <version>1.3.0</version>
        </dependency>
     </dependencies>
 </project>
@@ -320,4 +320,9 @@ public class Test {
 ### 4.5.前后端分离项目的使用
 
 &emsp;&emsp;分离项目建议不要存储在session中，存储在redis中。
+
+
+## 5.自定义效果
+
+参考源代码中的SpecCaptcha和GifCaptcha继承Captcha即可。
 

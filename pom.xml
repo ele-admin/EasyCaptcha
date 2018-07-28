@@ -5,11 +5,11 @@
     <groupId>com.github.whvcse</groupId>
 
     <artifactId>EasyCaptcha</artifactId>
-    <version>1.2.5-RELEASE</version>
+    <version>1.3.0-RELEASE</version>
     <packaging>jar</packaging>
 
     <name>EasyCaptcha</name>
-    <description>Java图形验证码，支持gif验证码。</description>
+    <description>Java图形验证码，支持gif验证码、中文验证码，适用于Java Web、JavaSE项目。</description>
     <url>https://github.com/whvcse/EasyCaptcha</url>
 
     <licenses>

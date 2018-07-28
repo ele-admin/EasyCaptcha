@@ -56,21 +56,36 @@ public class ChineseCaptcha extends ChineseCaptchaAbstract {
             int len = strs.length;
             g.setColor(Color.WHITE);
             g.fillRect(0, 0, width, height);
+            // 抗锯齿
             g.setColor(color());
             g.setFont(font);
-            int h = height - ((height - font.getSize()) >> 1);
-            int w = width / len;
-            // 抗锯齿
             g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            int hp = (height - font.getSize()) >> 1;
+            int h = height - hp;
+            int w = width / strs.length;
+            int sp = (w - font.getSize()) / 2;
             // 画字符串
             for (int i = 0; i < len; i++) {
-                int x = i * w + num(2, 6);
-                int y = h - num(2, 6);
+                // 计算坐标
+                int x = i * w + sp + num(-Math.abs(sp), Math.abs(sp));
+                int y = h + num(-Math.abs(hp), Math.abs(hp));
+                if (x < 0) {
+                    x = 0;
+                }
+                if (x + font.getSize() > width) {
+                    x = width - font.getSize();
+                }
+                if (y > height) {
+                    y = height;
+                }
+                if (y - font.getSize() < 0) {
+                    y = font.getSize();
+                }
                 g.drawString(String.valueOf(strs[i]), x, y);
             }
             // 随机画干扰线
             g.setStroke(new BasicStroke(1.25f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < 6; i++) {
                 ac3 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f);  // 指定透明度
                 g.setComposite(ac3);
                 int x1 = num(-10, width - 10);

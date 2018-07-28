@@ -17,7 +17,10 @@ public abstract class Captcha extends Randoms {
     protected int charType = TYPE_DEFAULT;  // 验证码类型，1字母数字混合，2纯数字，3纯字母
     public static final int TYPE_DEFAULT = 1;  // 字母数字混合
     public static final int TYPE_ONLY_NUMBER = 2;  // 纯数字
-    public static final int TYPE_ONLY_CHAR = 3;  // 纯字母
+    public static final int TYPE_ONLY_CHAR = 3;  // 纯字母    // 常用颜色
+    // 常用颜色
+    public static final int[][] COLOR = {{0, 135, 255}, {51, 153, 51}, {255, 102, 102}, {255, 153, 0}, {153, 102, 0}, {153, 102, 153}, {51, 153, 153}, {102, 102, 255}, {0, 102, 204}, {204, 51, 51}, {0, 153, 204}, {0, 51, 102}};
+
 
     /**
      * 生成随机验证码
@@ -58,6 +61,16 @@ public abstract class Captcha extends Randoms {
         int g = fc + num(bc - fc);
         int b = fc + num(bc - fc);
         return new Color(r, g, b);
+    }
+
+    /**
+     * 获取随机常用颜色
+     *
+     * @return 随机颜色
+     */
+    protected Color color() {
+        int[] color = COLOR[num(COLOR.length)];
+        return new Color(color[0], color[1], color[2]);
     }
 
     /**
