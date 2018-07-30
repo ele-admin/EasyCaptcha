@@ -32,17 +32,17 @@ public class CaptchaTest {
 
     @Test
     public void testHan() throws Exception {
-        ChineseCaptcha chineseCaptcha = new ChineseCaptcha();
+        //  ChineseCaptcha chineseCaptcha = new ChineseCaptcha();
         //chineseCaptcha.setFont(new Font("微软雅黑", Font.PLAIN, 25));
-        System.out.println(chineseCaptcha.text());
+        // System.out.println(chineseCaptcha.text());
         //chineseCaptcha.out(new FileOutputStream(new File("D:/Java/aa.png")));
     }
 
     @Test
     public void testGifHan() throws Exception {
-        ChineseGifCaptcha chineseGifCaptcha = new ChineseGifCaptcha();
+        // ChineseGifCaptcha chineseGifCaptcha = new ChineseGifCaptcha();
         //chineseGifCaptcha.setFont(new Font("微软雅黑", Font.PLAIN, 30));
-        System.out.println(chineseGifCaptcha.text());
+        // System.out.println(chineseGifCaptcha.text());
         //chineseGifCaptcha.out(new FileOutputStream(new File("D:/Java/aa.gif")));
     }
 
