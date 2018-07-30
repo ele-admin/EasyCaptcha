@@ -67,8 +67,8 @@ public class ChineseCaptcha extends ChineseCaptchaAbstract {
             // 画字符串
             for (int i = 0; i < len; i++) {
                 // 计算坐标
-                int x = i * w + sp + num(-Math.abs(sp), Math.abs(sp));
-                int y = h + num(-Math.abs(hp), Math.abs(hp));
+                int x = i * w + sp + num(-5, 5);
+                int y = h + num(-5, 5);
                 if (x < 0) {
                     x = 0;
                 }

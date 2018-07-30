@@ -140,7 +140,7 @@ public class LoginController {
     @PostMapping("/login")
     public JsonResult login(String username,String password,String code){
         
-        if (CaptchaUtil.ver(code, request)) {
+        if (!CaptchaUtil.ver(code, request)) {
             CaptchaUtil.clear(request);
             return JsonResult.error("验证码不正确");
         }

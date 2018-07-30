@@ -96,14 +96,14 @@ public class GifCaptcha extends Captcha {
         int hp = (height - font.getSize()) >> 1;
         int h = height - hp;
         int w = width / strs.length;
-        int sp = (w - font.getSize()) / 2;
+        //int sp = (w - font.getSize()) / 2;
         for (int i = 0; i < strs.length; i++) {
             AlphaComposite ac3 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, getAlpha(flag, i));
             g2d.setComposite(ac3);
             g2d.setColor(fontcolor[i]);
             // 计算坐标
-            int x = i * w + sp + num(-3, 3);
-            int y = h + num(-6, 0);
+            int x = i * w + num(6);
+            int y = h - num(2, 8);
             if (x < 0) {
                 x = 0;
             }
@@ -131,8 +131,9 @@ public class GifCaptcha extends Captcha {
      */
     private float getAlpha(int i, int j) {
         int num = i + j;
-        float r = (float) 1 / len, s = (len + 1) * r;
-        return num > len ? (num * r - s) : num * r;
+        float r = (float) 1 / (len - 1);
+        float s = len * r;
+        return num >= len ? (num * r - s) : num * r;
     }
 
 }

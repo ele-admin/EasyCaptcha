@@ -9,7 +9,7 @@ import java.io.OutputStream;
  * Created by 王帆 on 2018-07-27 上午 10:08.
  */
 public abstract class Captcha extends Randoms {
-    protected Font font = new Font("Verdana", Font.PLAIN, 32); // 字体
+    protected Font font = new Font("Arial", Font.PLAIN, 32); // 字体Verdana
     protected int len = 5; // 验证码随机字符长度
     protected int width = 130; // 验证码显示宽度
     protected int height = 48; // 验证码显示高度
@@ -17,10 +17,9 @@ public abstract class Captcha extends Randoms {
     protected int charType = TYPE_DEFAULT;  // 验证码类型，1字母数字混合，2纯数字，3纯字母
     public static final int TYPE_DEFAULT = 1;  // 字母数字混合
     public static final int TYPE_ONLY_NUMBER = 2;  // 纯数字
-    public static final int TYPE_ONLY_CHAR = 3;  // 纯字母    // 常用颜色
+    public static final int TYPE_ONLY_CHAR = 3;  // 纯字母
     // 常用颜色
     public static final int[][] COLOR = {{0, 135, 255}, {51, 153, 51}, {255, 102, 102}, {255, 153, 0}, {153, 102, 0}, {153, 102, 153}, {51, 153, 153}, {102, 102, 255}, {0, 102, 204}, {204, 51, 51}, {0, 153, 204}, {0, 51, 102}};
-
 
     /**
      * 生成随机验证码

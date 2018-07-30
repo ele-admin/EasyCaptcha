@@ -81,12 +81,12 @@ public class SpecCaptcha extends Captcha {
             int hp = (height - font.getSize()) >> 1;
             int h = height - hp;
             int w = width / strs.length;
-            int sp = (w - font.getSize()) / 2;
+            //int sp = (w - font.getSize()) / 2;
             for (int i = 0; i < strs.length; i++) {
                 g.setColor(new Color(20 + num(110), 20 + num(110), 20 + num(110)));
                 // 计算坐标
-                int x = i * w + sp + num(-Math.abs(sp), Math.abs(sp));
-                int y = h + num(-Math.abs(hp), Math.abs(hp));
+                int x = i * w + num(10);
+                int y = h - num(9);
                 if (x < 0) {
                     x = 0;
                 }
@@ -99,7 +99,6 @@ public class SpecCaptcha extends Captcha {
                 if (y - font.getSize() < 0) {
                     y = font.getSize();
                 }
-                System.out.println(x + "--" + y);
                 g.drawString(String.valueOf(strs[i]), x, y);
             }
             ImageIO.write(bi, "png", out);
