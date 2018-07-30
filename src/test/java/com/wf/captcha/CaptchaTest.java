@@ -17,7 +17,7 @@ public class CaptchaTest {
             SpecCaptcha specCaptcha = new SpecCaptcha();
             //specCaptcha.setCharType(Captcha.TYPE_ONLY_NUMBER);
             System.out.println(specCaptcha.text());
-            specCaptcha.out(new FileOutputStream(new File("D:/Java/aa" + i + ".png")));
+            //specCaptcha.out(new FileOutputStream(new File("D:/Java/aa" + i + ".png")));
         }
     }
 
@@ -26,7 +26,7 @@ public class CaptchaTest {
         for (int i = 0; i < 5; i++) {
             GifCaptcha gifCaptcha = new GifCaptcha();
             System.out.println(gifCaptcha.text());
-            gifCaptcha.out(new FileOutputStream(new File("D:/Java/aa" + i + ".gif")));
+            //gifCaptcha.out(new FileOutputStream(new File("D:/Java/aa" + i + ".gif")));
         }
     }
 
@@ -35,7 +35,7 @@ public class CaptchaTest {
         ChineseCaptcha chineseCaptcha = new ChineseCaptcha();
         //chineseCaptcha.setFont(new Font("微软雅黑", Font.PLAIN, 25));
         System.out.println(chineseCaptcha.text());
-        chineseCaptcha.out(new FileOutputStream(new File("D:/Java/aa.png")));
+        //chineseCaptcha.out(new FileOutputStream(new File("D:/Java/aa.png")));
     }
 
     @Test
@@ -43,7 +43,7 @@ public class CaptchaTest {
         ChineseGifCaptcha chineseGifCaptcha = new ChineseGifCaptcha();
         //chineseGifCaptcha.setFont(new Font("微软雅黑", Font.PLAIN, 30));
         System.out.println(chineseGifCaptcha.text());
-        chineseGifCaptcha.out(new FileOutputStream(new File("D:/Java/aa.gif")));
+        //chineseGifCaptcha.out(new FileOutputStream(new File("D:/Java/aa.gif")));
     }
 
 }
