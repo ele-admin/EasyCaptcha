@@ -28,7 +28,7 @@ public class ChineseGifCaptcha extends ChineseCaptchaAbstract {
     @Override
     public boolean out(OutputStream os) {
         checkAlpha();
-        boolean ok = false;
+        boolean ok;
         try {
             char[] rands = textChar();  // 获取验证码数组
             GifEncoder gifEncoder = new GifEncoder();
@@ -71,7 +71,6 @@ public class ChineseGifCaptcha extends ChineseCaptchaAbstract {
         // 抗锯齿
         AlphaComposite ac3;
         g2d.setColor(fontcolor);
-        g2d.setFont(font);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         // 画验证码
         int hp = (height - font.getSize()) >> 1;
@@ -96,23 +95,16 @@ public class ChineseGifCaptcha extends ChineseCaptchaAbstract {
             if (y - font.getSize() < 0) {
                 y = font.getSize();
             }
+            g2d.setFont(font.deriveFont(num(2) == 0 ? Font.PLAIN : Font.ITALIC));
             g2d.drawString(String.valueOf(strs[i]), x, y);
         }
         // 随机画干扰线
         g2d.setStroke(new BasicStroke(1.25f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
         ac3 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.45f);
         g2d.setComposite(ac3);
-        for (int i = 0; i < 4; i++) {
-            int x1 = num(-10, width - 10);
-            int y1 = num(5, height - 5);
-            int x2 = num(10, width + 10);
-            int y2 = num(2, height - 2);
-            g2d.drawLine(x1, y1, x2, y2);
-        }
+        drawLine(1, g2d.getColor(), g2d);
         // 画干扰圆圈
-        for (int i = 0; i < 8; i++) {
-            g2d.drawOval(num(width), num(height), 5 + num(50), 5 + num(50));
-        }
+        drawOval(3, g2d.getColor(), g2d);
         g2d.dispose();
         return image;
     }

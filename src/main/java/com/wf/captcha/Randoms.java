@@ -15,6 +15,10 @@ public class Randoms {
     protected static final int numMaxIndex = 8;  // 数字的最大索引，不包括最大值
     protected static final int charMinIndex = numMaxIndex;  // 字符的最小索引，包括最小值
     protected static final int charMaxIndex = ALPHA.length;  // 字符的最大索引，不包括最大值
+    protected static final int upperMinIndex = charMinIndex;  // 大写字符最小索引
+    protected static final int upperMaxIndex = upperMinIndex + 23;  // 大写字符最大索引
+    protected static final int lowerMinIndex = upperMaxIndex;  // 小写字母最小索引
+    protected static final int lowerMaxIndex = charMaxIndex;  // 小写字母最大索引
 
     /**
      * 产生两个数之间的随机数

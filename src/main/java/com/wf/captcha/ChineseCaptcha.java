@@ -58,7 +58,6 @@ public class ChineseCaptcha extends ChineseCaptchaAbstract {
             g.fillRect(0, 0, width, height);
             // 抗锯齿
             g.setColor(color());
-            g.setFont(font);
             g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             int hp = (height - font.getSize()) >> 1;
             int h = height - hp;
@@ -69,8 +68,8 @@ public class ChineseCaptcha extends ChineseCaptchaAbstract {
                 // 计算坐标
                 int x = i * w + sp + num(-5, 5);
                 int y = h + num(-5, 5);
-                if (x < 0) {
-                    x = 0;
+                if (x < 5) {
+                    x = 5;
                 }
                 if (x + font.getSize() > width) {
                     x = width - font.getSize();
@@ -81,21 +80,16 @@ public class ChineseCaptcha extends ChineseCaptchaAbstract {
                 if (y - font.getSize() < 0) {
                     y = font.getSize();
                 }
+                g.setFont(font.deriveFont(num(2) == 0 ? Font.PLAIN : Font.ITALIC));
                 g.drawString(String.valueOf(strs[i]), x, y);
             }
             // 随机画干扰线
             g.setStroke(new BasicStroke(1.25f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
-            for (int i = 0; i < 6; i++) {
-                ac3 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f);  // 指定透明度
-                g.setComposite(ac3);
-                int x1 = num(-10, width - 10);
-                int y1 = num(5, height - 5);
-                int x2 = num(10, width + 10);
-                int y2 = num(2, height - 2);
-                g.drawLine(x1, y1, x2, y2);
-                // 画干扰圆圈
-                g.drawOval(num(width), num(height), 5 + num(25), 5 + num(25));
-            }
+            ac3 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f);  // 指定透明度
+            g.setComposite(ac3);
+            drawLine(2, g.getColor(), g);
+            // 画干扰圆圈
+            drawOval(5, g.getColor(), g);
             ImageIO.write(bi, "png", out);
             out.flush();
             ok = true;

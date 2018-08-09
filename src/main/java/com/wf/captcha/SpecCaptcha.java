@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 public class SpecCaptcha extends Captcha {
 
     public SpecCaptcha() {
-        setFont(new Font(font.getFontName(), Font.ITALIC, font.getSize()));
     }
 
     public SpecCaptcha(int width, int height) {
@@ -60,35 +59,26 @@ public class SpecCaptcha extends Captcha {
             g.setColor(Color.WHITE);
             g.fillRect(0, 0, width, height);
             // 抗锯齿
-            g.setFont(font);
             g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g.setStroke(new BasicStroke(1.3f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
             // 随机画干扰线
-            for (int i = 0; i < 12; i++) {
-                g.setColor(color(150, 250));
-                g.setStroke(new BasicStroke(1.1f + RANDOM.nextFloat() / 2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
-                int x1 = num(-10, width - 10);
-                int y1 = num(5, height - 5);
-                int x2 = num(10, width + 10);
-                int y2 = num(2, height - 2);
-                g.drawLine(x1, y1, x2, y2);
-                // 画干扰圆圈
-                g.setColor(color(100, 250));
-                g.drawOval(num(width), num(height), 5 + num(25), 5 + num(25));
-            }
+            drawLine(3, g);
+            // 随机画干扰圆
+            drawOval(8, g);
             // 画字符串
-            AlphaComposite ac3 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f);// 指定透明度
+            AlphaComposite ac3 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f);// 指定透明度
             g.setComposite(ac3);
             int hp = (height - font.getSize()) >> 1;
             int h = height - hp;
             int w = width / strs.length;
-            //int sp = (w - font.getSize()) / 2;
+            int sp = (w - font.getSize()) / 2;
             for (int i = 0; i < strs.length; i++) {
                 g.setColor(new Color(20 + num(110), 20 + num(110), 20 + num(110)));
                 // 计算坐标
-                int x = i * w + num(10);
-                int y = h - num(9);
-                if (x < 0) {
-                    x = 0;
+                int x = i * w + sp + num(3);
+                int y = h - num(3, 6);
+                if (x < 8) {
+                    x = 8;
                 }
                 if (x + font.getSize() > width) {
                     x = width - font.getSize();
@@ -99,6 +89,7 @@ public class SpecCaptcha extends Captcha {
                 if (y - font.getSize() < 0) {
                     y = font.getSize();
                 }
+                g.setFont(font.deriveFont(num(2) == 0 ? Font.PLAIN : Font.ITALIC));
                 g.drawString(String.valueOf(strs[i]), x, y);
             }
             ImageIO.write(bi, "png", out);

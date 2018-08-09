@@ -1,7 +1,6 @@
 package com.wf.captcha;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 import java.io.OutputStream;
 
 /**
@@ -9,8 +8,8 @@ import java.io.OutputStream;
  * Created by 王帆 on 2018-07-27 上午 10:08.
  */
 public abstract class Captcha extends Randoms {
-    protected Font font = new Font("Arial", Font.PLAIN, 32); // 字体Verdana
-    protected int len = 5; // 验证码随机字符长度
+    protected Font font = new Font("Arial", Font.BOLD, 32); // 字体Verdana
+    protected int len = 4; // 验证码随机字符长度
     protected int width = 130; // 验证码显示宽度
     protected int height = 48; // 验证码显示高度
     protected String chars = null; // 当前验证码
@@ -18,6 +17,9 @@ public abstract class Captcha extends Randoms {
     public static final int TYPE_DEFAULT = 1;  // 字母数字混合
     public static final int TYPE_ONLY_NUMBER = 2;  // 纯数字
     public static final int TYPE_ONLY_CHAR = 3;  // 纯字母
+    public static final int TYPE_ONLY_UPPER = 4;  // 纯大写字母
+    public static final int TYPE_ONLY_LOWER = 5;  // 纯小写字母
+    public static final int TYPE_NUM_AND_UPPER = 6;  // 数字大写字母
     // 常用颜色
     public static final int[][] COLOR = {{0, 135, 255}, {51, 153, 51}, {255, 102, 102}, {255, 153, 0}, {153, 102, 0}, {153, 102, 153}, {51, 153, 153}, {102, 102, 255}, {0, 102, 204}, {204, 51, 51}, {0, 153, 204}, {0, 51, 102}};
 
@@ -35,6 +37,15 @@ public abstract class Captcha extends Randoms {
                     break;
                 case 3:
                     cs[i] = alpha(charMinIndex, charMaxIndex);
+                    break;
+                case 4:
+                    cs[i] = alpha(upperMinIndex, upperMaxIndex);
+                    break;
+                case 5:
+                    cs[i] = alpha(lowerMinIndex, lowerMaxIndex);
+                    break;
+                case 6:
+                    cs[i] = alpha(upperMaxIndex);
                     break;
                 default:
                     cs[i] = alpha();
@@ -106,6 +117,61 @@ public abstract class Captcha extends Randoms {
     public void checkAlpha() {
         if (chars == null) {
             alphas(); // 生成验证码
+        }
+    }
+
+    /**
+     * 随机画干扰线
+     *
+     * @param num 数量
+     * @param g   Graphics2D
+     */
+    public void drawLine(int num, Graphics2D g) {
+        drawLine(num, null, g);
+    }
+
+    /**
+     * 随机画干扰线
+     *
+     * @param num   数量
+     * @param color 颜色
+     * @param g     Graphics2D
+     */
+    public void drawLine(int num, Color color, Graphics2D g) {
+        for (int i = 0; i < num; i++) {
+            g.setColor(color == null ? color(150, 250) : color);
+            int x1 = num(-10, width - 10);
+            int y1 = num(5, height - 5);
+            int x2 = num(10, width + 10);
+            int y2 = num(2, height - 2);
+            g.drawLine(x1, y1, x2, y2);
+        }
+    }
+
+    /**
+     * 随机画干扰圆
+     *
+     * @param num 数量
+     * @param g   Graphics2D
+     */
+    public void drawOval(int num, Graphics2D g) {
+        for (int i = 0; i < num; i++) {
+            g.setColor(color(100, 250));
+            g.drawOval(num(width), num(height), 10 + num(20), 10 + num(20));
+        }
+    }
+
+    /**
+     * 随机画干扰圆
+     *
+     * @param num   数量
+     * @param color 颜色
+     * @param g     Graphics2D
+     */
+    public void drawOval(int num, Color color, Graphics2D g) {
+        for (int i = 0; i < num; i++) {
+            g.setColor(color == null ? color(100, 250) : color);
+            g.drawOval(num(width), num(height), 10 + num(20), 10 + num(20));
         }
     }
 

@@ -35,4 +35,16 @@ public abstract class ChineseCaptchaAbstract extends Captcha {
         return DELTA.charAt(num(DELTA.length()));
     }
 
+
+    @Override
+    public void drawLine(int num, Color color, Graphics2D g) {
+        for (int i = 0; i < num; i++) {
+            g.setColor(color == null ? color(150, 250) : color);
+            int x1 = num(-10, width / 3);
+            int y1 = num(5, height - 5);
+            int x2 = num(width / 3 * 2, width + 10);
+            int y2 = num(2, height - 2);
+            g.drawLine(x1, y1, x2, y2);
+        }
+    }
 }
