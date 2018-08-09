@@ -58,7 +58,7 @@ allprojects {
 在项目的build.gradle中添加
 ```text
 dependencies {
-    compile 'com.github.whvcse:EasyCaptcha:1.3.0'
+    compile 'com.github.whvcse:EasyCaptcha:1.5.0'
 }
 ```
 
@@ -77,7 +77,7 @@ dependencies {
        <dependency>
           <groupId>com.github.whvcse</groupId>
           <artifactId>EasyCaptcha</artifactId>
-          <version>1.3.0</version>
+          <version>1.5.0</version>
        </dependency>
     </dependencies>
 </project>
@@ -85,7 +85,7 @@ dependencies {
 ```
 
 ### 2.3.jar包下载
-[EasyCaptcha-1.3.0.jar](https://gitee.com/whvse/EasyCaptcha/releases)
+[EasyCaptcha-1.5.0.jar](https://gitee.com/whvse/EasyCaptcha/releases)
 
 
 ---
