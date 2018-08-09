@@ -267,6 +267,9 @@ public class Test {
  TYPE_DEFAULT | 数字和字母混合 
  TYPE_ONLY_NUMBER | 纯数字
  TYPE_ONLY_CHAR | 纯字母 
+ TYPE_ONLY_UPPER | 纯大写字母
+ TYPE_ONLY_LOWER | 纯小写字母
+ TYPE_NUM_AND_UPPER | 数字和大写字母
 
 
 ### 4.4.中文验证码
