@@ -2,23 +2,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.whvcse</groupId>
+    <groupId>org.wf</groupId>
 
-    <artifactId>EasyCaptcha</artifactId>
+    <artifactId>easy-captcha</artifactId>
     <version>1.5.0-RELEASE</version>
     <packaging>jar</packaging>
 
     <name>EasyCaptcha</name>
     <description>Java图形验证码，支持gif验证码、中文验证码，适用于Java Web、JavaSE项目。</description>
     <url>https://github.com/whvcse/EasyCaptcha</url>
-
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
 
     <dependencies>
         <!-- j2ee环境 -->
@@ -49,81 +41,15 @@
             </plugin>
         </plugins>
     </build>
-    <!--
-        <scm>
-            <url>https://github.com/whvcse/EasyCaptcha</url>
-            <connection>https://github.com/whvcse/EasyCaptcha.git</connection>
-            <developerConnection>https://github.com/whvcse/EasyCaptcha</developerConnection>
-        </scm>
 
-        <developers>
-            <developer>
-                <name>whvcse</name>
-                <email>whvcse@foxmail.com</email>
-                <url>https://github.com/whvcse</url>
-            </developer>
-        </developers>
-
-        <distributionManagement>
-            <snapshotRepository>
-                <id>ossrh</id>
-                <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            </snapshotRepository>
-            <repository>
-                <id>ossrh</id>
-                <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-            </repository>
-        </distributionManagement>
-
-        <profiles>
-            <profile>
-                <id>release</id>
-                <build>
-                    <plugins>
-                        &lt;!&ndash; Source &ndash;&gt;
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-source-plugin</artifactId>
-                            <version>2.2.1</version>
-                            <executions>
-                                <execution>
-                                    <id>attach-sources</id>
-                                    <goals>
-                                        <goal>jar-no-fork</goal>
-                                    </goals>
-                                </execution>
-                            </executions>
-                        </plugin>
-                        &lt;!&ndash; Javadoc &ndash;&gt;
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-javadoc-plugin</artifactId>
-                            <version>2.9.1</version>
-                            <executions>
-                                <execution>
-                                    <id>attach-javadocs</id>
-                                    <goals>
-                                        <goal>jar</goal>
-                                    </goals>
-                                </execution>
-                            </executions>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-gpg-plugin</artifactId>
-                            <version>1.5</version>
-                            <executions>
-                                <execution>
-                                    <id>sign-artifacts</id>
-                                    <phase>verify</phase>
-                                    <goals>
-                                        <goal>sign</goal>
-                                    </goals>
-                                </execution>
-                            </executions>
-                        </plugin>
-                    </plugins>
-                </build>
-            </profile>
-        </profiles>-->
+    <distributionManagement>
+        <repository>
+            <id>rdc-releases</id>
+            <url>https://repo.rdc.aliyun.com/repository/70786-release-exL3mB/</url>
+        </repository>
+        <snapshotRepository>
+            <id>rdc-snapshots</id>
+            <url>https://repo.rdc.aliyun.com/repository/70786-snapshot-Y0tgOa/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
