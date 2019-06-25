@@ -87,6 +87,15 @@ dependencies {
 ### 2.3.jar包下载
 [EasyCaptcha-1.5.0.jar](https://gitee.com/whvse/EasyCaptcha/releases)
 
+maven导入jar包，在项目根目录创建`libs`文件夹，然后pom.xml添加如下：
+```
+<dependency>
+  <groupId>com.github.whvcse</groupId>
+  <artifactId>EasyCaptcha</artifactId>
+  <version>1.5.0</version>
+  <systemPath>${basedir}/libs/EasyCaptcha.jar</systemPath>
+</dependency>
+```
 
 ---
 
