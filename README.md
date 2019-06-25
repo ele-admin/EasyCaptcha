@@ -93,7 +93,7 @@ maven导入jar包，在项目根目录创建`libs`文件夹，然后pom.xml添�
   <groupId>com.github.whvcse</groupId>
   <artifactId>EasyCaptcha</artifactId>
   <version>1.5.0</version>
-  <systemPath>${basedir}/libs/EasyCaptcha.jar</systemPath>
+  <systemPath>${basedir}/libs/EasyCaptcha-1.5.0.jar</systemPath>
 </dependency>
 ```
 
