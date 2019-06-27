@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 public class ChineseCaptcha extends ChineseCaptchaAbstract {
 
@@ -90,7 +92,10 @@ public class ChineseCaptcha extends ChineseCaptchaAbstract {
             drawLine(2, g.getColor(), g);
             // 画干扰圆圈
             drawOval(5, g.getColor(), g);
-            ImageIO.write(bi, "png", out);
+            
+            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+            encoder.encode(bi);
+//             ImageIO.write(bi, "png", out);
             out.flush();
             ok = true;
         } catch (IOException e) {
