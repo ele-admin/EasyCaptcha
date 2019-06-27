@@ -94,7 +94,7 @@ public class SpecCaptcha extends Captcha {
                 g.setFont(font.deriveFont(num(2) == 0 ? Font.PLAIN : Font.ITALIC));
                 g.drawString(String.valueOf(strs[i]), x, y);
             }
-            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(outputStream);
+            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
             encoder.encode(bi);
 //             ImageIO.write(bi, "png", out);
             out.flush();
