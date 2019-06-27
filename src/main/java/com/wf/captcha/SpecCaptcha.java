@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import javax.imageio.ImageIO;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 /**
  * png格式验证码
@@ -92,7 +94,9 @@ public class SpecCaptcha extends Captcha {
                 g.setFont(font.deriveFont(num(2) == 0 ? Font.PLAIN : Font.ITALIC));
                 g.drawString(String.valueOf(strs[i]), x, y);
             }
-            ImageIO.write(bi, "png", out);
+            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(outputStream);
+            encoder.encode(bi);
+//             ImageIO.write(bi, "png", out);
             out.flush();
             ok = true;
         } catch (IOException e) {
