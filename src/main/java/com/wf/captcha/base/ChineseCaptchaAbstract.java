@@ -1,4 +1,6 @@
-package com.wf.captcha;
+package com.wf.captcha.base;
+
+import com.wf.captcha.base.Captcha;
 
 import java.awt.*;
 

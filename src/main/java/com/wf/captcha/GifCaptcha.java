@@ -1,5 +1,8 @@
 package com.wf.captcha;
 
+import com.wf.captcha.base.Captcha;
+import com.wf.captcha.utils.GifEncoder;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -84,6 +87,7 @@ public class GifCaptcha extends Captcha {
         // 随机画干扰线
         drawLine(2, g2d);
         // 画验证码
+        Font font = getFont();
         int hp = (height - font.getSize()) >> 1;
         int h = height - hp;
         int w = width / strs.length;

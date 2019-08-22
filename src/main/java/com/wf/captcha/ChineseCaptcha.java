@@ -1,5 +1,7 @@
 package com.wf.captcha;
 
+import com.wf.captcha.base.ChineseCaptchaAbstract;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -58,6 +60,7 @@ public class ChineseCaptcha extends ChineseCaptchaAbstract {
             g.fillRect(0, 0, width, height);
             // 抗锯齿
             g.setColor(color());
+            Font font = getFont();
             g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             int hp = (height - font.getSize()) >> 1;
             int h = height - hp;

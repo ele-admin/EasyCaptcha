@@ -1,5 +1,8 @@
 package com.wf.captcha;
 
+import com.wf.captcha.base.ChineseCaptchaAbstract;
+import com.wf.captcha.utils.GifEncoder;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -73,6 +76,7 @@ public class ChineseGifCaptcha extends ChineseCaptchaAbstract {
         g2d.setColor(fontcolor);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         // 画验证码
+        Font font = getFont();
         int hp = (height - font.getSize()) >> 1;
         int h = height - hp;
         int w = width / strs.length;

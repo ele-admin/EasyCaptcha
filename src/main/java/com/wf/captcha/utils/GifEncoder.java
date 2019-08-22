@@ -1,4 +1,4 @@
-package com.wf.captcha;
+package com.wf.captcha.utils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

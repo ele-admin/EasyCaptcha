@@ -1,4 +1,4 @@
-package com.wf.captcha;
+package com.wf.captcha.base;
 
 import java.util.Random;
 

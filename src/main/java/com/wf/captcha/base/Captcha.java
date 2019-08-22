@@ -1,6 +1,10 @@
-package com.wf.captcha;
+package com.wf.captcha.base;
 
 import java.awt.*;
+import java.awt.geom.CubicCurve2D;
+import java.awt.geom.QuadCurve2D;
+import java.io.File;
+import java.io.IOException;
 import java.io.OutputStream;
 
 /**
@@ -8,20 +12,33 @@ import java.io.OutputStream;
  * Created by 王帆 on 2018-07-27 上午 10:08.
  */
 public abstract class Captcha extends Randoms {
-    protected Font font = new Font("Arial", Font.BOLD, 32); // 字体Verdana
-    protected int len = 4; // 验证码随机字符长度
-    protected int width = 130; // 验证码显示宽度
-    protected int height = 48; // 验证码显示高度
-    protected String chars = null; // 当前验证码
-    protected int charType = TYPE_DEFAULT;  // 验证码类型，1字母数字混合，2纯数字，3纯字母
+    // 常用颜色
+    public static final int[][] COLOR = {{0, 135, 255}, {51, 153, 51}, {255, 102, 102}, {255, 153, 0}, {153, 102, 0}, {153, 102, 153}, {51, 153, 153}, {102, 102, 255}, {0, 102, 204}, {204, 51, 51}, {0, 153, 204}, {0, 51, 102}};
+    // 验证码文本类型
     public static final int TYPE_DEFAULT = 1;  // 字母数字混合
     public static final int TYPE_ONLY_NUMBER = 2;  // 纯数字
     public static final int TYPE_ONLY_CHAR = 3;  // 纯字母
     public static final int TYPE_ONLY_UPPER = 4;  // 纯大写字母
     public static final int TYPE_ONLY_LOWER = 5;  // 纯小写字母
     public static final int TYPE_NUM_AND_UPPER = 6;  // 数字大写字母
-    // 常用颜色
-    public static final int[][] COLOR = {{0, 135, 255}, {51, 153, 51}, {255, 102, 102}, {255, 153, 0}, {153, 102, 0}, {153, 102, 153}, {51, 153, 153}, {102, 102, 255}, {0, 102, 204}, {204, 51, 51}, {0, 153, 204}, {0, 51, 102}};
+    // 内置字体
+    public static final int FONT_1 = 0;
+    public static final int FONT_2 = 1;
+    public static final int FONT_3 = 2;
+    public static final int FONT_4 = 3;
+    public static final int FONT_5 = 4;
+    public static final int FONT_6 = 5;
+    public static final int FONT_7 = 6;
+    public static final int FONT_8 = 7;
+    public static final int FONT_9 = 8;
+    public static final int FONT_10 = 9;
+    private static final String[] FONT_NAMES = new String[]{"actionj.ttf", "epilog.ttf", "fresnel.ttf", "headache.ttf", "lexo.ttf", "prefix.ttf", "progbot.ttf", "ransom.ttf", "robot.ttf", "scandal.ttf"};
+    private Font font = null; // 验证码的字体
+    protected int len = 5; // 验证码随机字符长度
+    protected int width = 130; // 验证码显示宽度
+    protected int height = 48; // 验证码显示高度
+    protected int charType = TYPE_DEFAULT;  // 验证码类型
+    protected String chars = null; // 当前验证码
 
     /**
      * 生成随机验证码
@@ -112,7 +129,7 @@ public abstract class Captcha extends Randoms {
     }
 
     /**
-     * 检查验证码是否生成，没有这立即生成
+     * 检查验证码是否生成，没有则立即生成
      */
     public void checkAlpha() {
         if (chars == null) {
@@ -175,12 +192,66 @@ public abstract class Captcha extends Randoms {
         }
     }
 
+    /**
+     * 随机画贝塞尔曲线
+     *
+     * @param num 数量
+     * @param g   Graphics2D
+     */
+    public void drawBesselLine(int num, Graphics2D g) {
+        drawBesselLine(num, null, g);
+    }
+
+    /**
+     * 随机画贝塞尔曲线
+     *
+     * @param num   数量
+     * @param color 颜色
+     * @param g     Graphics2D
+     */
+    public void drawBesselLine(int num, Color color, Graphics2D g) {
+        for (int i = 0; i < num; i++) {
+            g.setColor(color == null ? color() : color);
+            int x1 = 5;
+            int y1 = num(5, height - 5);
+            int x2 = width - 5;
+            int y2 = num(5, height - 5);
+            int ctrlx = num(5, width - 5);
+            int ctrly = num(5, height - 5);
+            if (num(2) == 0) {  // 二阶贝塞尔曲线
+                QuadCurve2D shape = new QuadCurve2D.Double();
+                shape.setCurve(x1, y1, ctrlx, ctrly, x2, y2);
+                g.draw(shape);
+            } else {  // 三阶贝塞尔曲线
+                int ctrlx1 = num(5, width - 5);
+                int ctrly1 = num(5, height - 5);
+                CubicCurve2D shape = new CubicCurve2D.Double(x1, y1, ctrlx, ctrly, ctrlx1, ctrly1, x2, y2);
+                g.draw(shape);
+            }
+        }
+    }
+
     public Font getFont() {
+        if (font == null) {
+            try {
+                setFont(FONT_1);
+            } catch (Exception e) {
+                setFont(new Font("Arial", Font.BOLD, 32));
+            }
+        }
         return font;
     }
 
     public void setFont(Font font) {
         this.font = font;
+    }
+
+    public void setFont(int font) throws IOException, FontFormatException {
+        setFont(font, Font.BOLD, 32f);
+    }
+
+    public void setFont(int font, int style, float size) throws IOException, FontFormatException {
+        this.font = Font.createFont(Font.TRUETYPE_FONT, new File(getClass().getResource("/" + FONT_NAMES[font]).getFile())).deriveFont(style, size);
     }
 
     public int getLen() {
