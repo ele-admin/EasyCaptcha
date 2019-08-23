@@ -4,6 +4,10 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
+/**
+ * 算术验证码抽象类
+ * Created by 王帆 on 2019-08-23 上午 10:08.
+ */
 public abstract class ArithmeticCaptchaAbstract extends Captcha {
     private String arithmeticString;  // 计算公式
 
