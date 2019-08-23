@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wf.captcha.base.Captcha;
-import com.wf.captcha.GifCaptcha;
 import com.wf.captcha.SpecCaptcha;
 
 /**
@@ -16,21 +15,9 @@ import com.wf.captcha.SpecCaptcha;
  */
 public class CaptchaUtil {
     private static final String SESSION_KEY = "captcha";
-
-    /**
-     * 验证验证码
-     *
-     * @param code    用户输入的验证码
-     * @param request HttpServletRequest
-     * @return 是否正确
-     */
-    public static boolean ver(String code, HttpServletRequest request) {
-        if (code != null && !code.trim().isEmpty()) {
-            String captcha = (String) request.getSession().getAttribute(SESSION_KEY);
-            return code.trim().toLowerCase().equals(captcha);
-        }
-        return false;
-    }
+    private static final int DEFAULT_LEN = 4;  // 默认长度
+    private static final int DEFAULT_WIDTH = 130;  // 默认宽度
+    private static final int DEFAULT_HEIGHT = 48;  // 默认高度
 
     /**
      * 输出验证码
@@ -41,7 +28,7 @@ public class CaptchaUtil {
      */
     public static void out(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        out(5, request, response);
+        out(DEFAULT_LEN, request, response);
     }
 
     /**
@@ -54,21 +41,7 @@ public class CaptchaUtil {
      */
     public static void out(int len, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        out(130, 48, len, request, response);
-    }
-
-    /**
-     * 输出验证码
-     *
-     * @param len      长度
-     * @param font     字体
-     * @param request  HttpServletRequest
-     * @param response HttpServletResponse
-     * @throws IOException IO异常
-     */
-    public static void out(int len, Font font, HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
-        out(130, 48, len, font, request, response);
+        out(DEFAULT_WIDTH, DEFAULT_HEIGHT, len, request, response);
     }
 
     /**
@@ -89,42 +62,14 @@ public class CaptchaUtil {
     /**
      * 输出验证码
      *
-     * @param width    宽度
-     * @param height   高度
-     * @param len      长度
      * @param font     字体
      * @param request  HttpServletRequest
      * @param response HttpServletResponse
      * @throws IOException IO异常
      */
-    public static void out(int width, int height, int len, Font font, HttpServletRequest request, HttpServletResponse response)
+    public static void out(Font font, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        outCaptcha(width, height, len, font, 1, request, response);
-    }
-
-    /**
-     * 输出验证码
-     *
-     * @param request  HttpServletRequest
-     * @param response HttpServletResponse
-     * @throws IOException IO异常
-     */
-    public static void outPng(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
-        outPng(5, request, response);
-    }
-
-    /**
-     * 输出验证码
-     *
-     * @param len      长度
-     * @param request  HttpServletRequest
-     * @param response HttpServletResponse
-     * @throws IOException IO异常
-     */
-    public static void outPng(int len, HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
-        outPng(130, 48, len, request, response);
+        out(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_LEN, font, request, response);
     }
 
     /**
@@ -136,24 +81,9 @@ public class CaptchaUtil {
      * @param response HttpServletResponse
      * @throws IOException IO异常
      */
-    public static void outPng(int len, Font font, HttpServletRequest request, HttpServletResponse response)
+    public static void out(int len, Font font, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        outPng(130, 48, len, font, request, response);
-    }
-
-    /**
-     * 输出验证码
-     *
-     * @param width    宽度
-     * @param height   高度
-     * @param len      长度
-     * @param request  HttpServletRequest
-     * @param response HttpServletResponse
-     * @throws IOException IO异常
-     */
-    public static void outPng(int width, int height, int len, HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
-        outPng(width, height, len, null, request, response);
+        out(DEFAULT_WIDTH, DEFAULT_HEIGHT, len, font, request, response);
     }
 
     /**
@@ -167,37 +97,44 @@ public class CaptchaUtil {
      * @param response HttpServletResponse
      * @throws IOException IO异常
      */
-    public static void outPng(int width, int height, int len, Font font, HttpServletRequest request, HttpServletResponse response)
+    public static void out(int width, int height, int len, Font font, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        outCaptcha(width, height, len, font, 0, request, response);
+        SpecCaptcha specCaptcha = new SpecCaptcha(width, height, len);
+        if (font != null) {
+            specCaptcha.setFont(font);
+        }
+        out(specCaptcha, request, response);
     }
+
 
     /**
      * 输出验证码
      *
-     * @param width    宽度
-     * @param height   高度
-     * @param len      长度
-     * @param font     字体
-     * @param cType    类型
+     * @param captcha  Captcha
      * @param request  HttpServletRequest
      * @param response HttpServletResponse
      * @throws IOException IO异常
      */
-    private static void outCaptcha(int width, int height, int len, Font font, int cType, HttpServletRequest request, HttpServletResponse response)
+    private static void out(Captcha captcha, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         setHeader(response);
-        Captcha captcha = null;
-        if (cType == 0) {
-            captcha = new SpecCaptcha(width, height, len);
-        } else if (cType == 1) {
-            captcha = new GifCaptcha(width, height, len);
-        }
-        if (font != null) {
-            captcha.setFont(font);
-        }
         request.getSession().setAttribute(SESSION_KEY, captcha.text().toLowerCase());
         captcha.out(response.getOutputStream());
+    }
+
+    /**
+     * 验证验证码
+     *
+     * @param code    用户输入的验证码
+     * @param request HttpServletRequest
+     * @return 是否正确
+     */
+    public static boolean ver(String code, HttpServletRequest request) {
+        if (code != null) {
+            String captcha = (String) request.getSession().getAttribute(SESSION_KEY);
+            return code.trim().toLowerCase().equals(captcha);
+        }
+        return false;
     }
 
     /**

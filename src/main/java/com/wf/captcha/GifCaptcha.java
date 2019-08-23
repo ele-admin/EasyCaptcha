@@ -4,6 +4,9 @@ import com.wf.captcha.base.Captcha;
 import com.wf.captcha.utils.GifEncoder;
 
 import java.awt.*;
+import java.awt.geom.CubicCurve2D;
+import java.awt.geom.QuadCurve2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -34,27 +37,39 @@ public class GifCaptcha extends Captcha {
 
     @Override
     public boolean out(OutputStream os) {
-        checkAlpha();
-        boolean ok;
         try {
-            char[] rands = textChar();  // 获取验证码数组
+            char[] strs = textChar();  // 获取验证码数组
+            // 随机生成每个文字的颜色
+            Color fontColor[] = new Color[len];
+            for (int i = 0; i < len; i++) {
+                fontColor[i] = color();
+            }
+            // 随机生成贝塞尔曲线参数
+            int x1 = 5, y1 = num(5, height / 2);
+            int x2 = width - 5, y2 = num(height / 2, height - 5);
+            int ctrlx = num(width / 4, width / 4 * 3), ctrly = num(5, height - 5);
+            if (num(2) == 0) {
+                int ty = y1;
+                y1 = y2;
+                y2 = ty;
+            }
+            int ctrlx1 = num(width / 4, width / 4 * 3), ctrly1 = num(5, height - 5);
+            int[][] besselXY = new int[][]{{x1, y1}, {ctrlx, ctrly}, {ctrlx1, ctrly1}, {x2, y2}};
+            // 开始画gif每一帧
             GifEncoder gifEncoder = new GifEncoder();
-            gifEncoder.start(os);
             gifEncoder.setQuality(180);
             gifEncoder.setDelay(100);
             gifEncoder.setRepeat(0);
-            BufferedImage frame;
-            Color fontcolor[] = new Color[len];
+            gifEncoder.start(os);
             for (int i = 0; i < len; i++) {
-                fontcolor[i] = new Color(20 + num(110), 20 + num(110), 20 + num(110));
-            }
-            for (int i = 0; i < len; i++) {
-                frame = graphicsImage(fontcolor, rands, i);
+                BufferedImage frame = graphicsImage(fontColor, strs, i, besselXY);
                 gifEncoder.addFrame(frame);
                 frame.flush();
             }
             gifEncoder.finish();
-            ok = true;
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             try {
                 os.close();
@@ -62,18 +77,24 @@ public class GifCaptcha extends Captcha {
                 e.printStackTrace();
             }
         }
-        return ok;
+        return false;
+    }
+
+    @Override
+    public String toBase64() {
+        return toBase64("data:image/gif;base64,");
     }
 
     /**
      * 画随机码图
      *
-     * @param fontcolor 随机字体颜色
+     * @param fontColor 随机字体颜色
      * @param strs      字符数组
-     * @param flag      透明度使用
+     * @param flag      透明度
+     * @param besselXY  干扰线参数
      * @return BufferedImage
      */
-    private BufferedImage graphicsImage(Color[] fontcolor, char[] strs, int flag) {
+    private BufferedImage graphicsImage(Color[] fontColor, char[] strs, int flag, int[][] besselXY) {
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = (Graphics2D) image.getGraphics();
         // 填充背景颜色
@@ -81,39 +102,27 @@ public class GifCaptcha extends Captcha {
         g2d.fillRect(0, 0, width, height);
         // 抗锯齿
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setStroke(new BasicStroke(1.3f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
         // 画干扰圆圈
-        drawOval(4, g2d);
-        // 随机画干扰线
-        drawLine(2, g2d);
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.1f * num(10)));  // 设置透明度
+        drawOval(2, g2d);
+        // 画干扰线
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));  // 设置透明度
+        g2d.setStroke(new BasicStroke(1.2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
+        g2d.setColor(fontColor[0]);
+        CubicCurve2D shape = new CubicCurve2D.Double(besselXY[0][0], besselXY[0][1], besselXY[1][0], besselXY[1][1], besselXY[2][0], besselXY[2][1], besselXY[3][0], besselXY[3][1]);
+        g2d.draw(shape);
         // 画验证码
-        Font font = getFont();
-        int hp = (height - font.getSize()) >> 1;
-        int h = height - hp;
-        int w = width / strs.length;
-        int sp = (w - font.getSize()) / 2;
+        g2d.setFont(getFont());
+        FontMetrics fontMetrics = g2d.getFontMetrics();
+        int fW = width / strs.length;  // 每一个字符所占的宽度
+        int fSp = (fW - (int) fontMetrics.getStringBounds("W", g2d).getWidth()) / 2;  // 字符的左右边距
         for (int i = 0; i < strs.length; i++) {
+            // 设置透明度
             AlphaComposite ac3 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, getAlpha(flag, i));
             g2d.setComposite(ac3);
-            g2d.setColor(fontcolor[i]);
-            // 计算坐标
-            int x = i * w + sp + num(3);
-            int y = h - num(3, 6);
-            // 调整溢出的字
-            if (x < 8) {
-                x = 8;
-            }
-            if (x + font.getSize() > width) {
-                x = width - font.getSize();
-            }
-            if (y > height) {
-                y = height;
-            }
-            if (y - font.getSize() < 0) {
-                y = font.getSize();
-            }
-            g2d.setFont(font.deriveFont(num(2) == 0 ? Font.PLAIN : Font.ITALIC));
-            g2d.drawString(String.valueOf(strs[i]), x, y);
+            g2d.setColor(fontColor[i]);
+            int fY = height - ((height - (int) fontMetrics.getStringBounds(String.valueOf(strs[i]), g2d).getHeight()) >> 1);  // 文字的纵坐标
+            g2d.drawString(String.valueOf(strs[i]), i * fW + fSp + 3, fY - 3);
         }
         g2d.dispose();
         return image;

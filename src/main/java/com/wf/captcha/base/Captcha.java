@@ -1,8 +1,11 @@
 package com.wf.captcha.base;
 
+import sun.misc.BASE64Encoder;
+
 import java.awt.*;
 import java.awt.geom.CubicCurve2D;
 import java.awt.geom.QuadCurve2D;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -108,6 +111,20 @@ public abstract class Captcha extends Randoms {
      */
     public abstract boolean out(OutputStream os);
 
+    public abstract String toBase64();
+
+    /**
+     * 输出base64编码
+     *
+     * @param type 编码头
+     * @return
+     */
+    public String toBase64(String type) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        out(outputStream);
+        return type + new BASE64Encoder().encode(outputStream.toByteArray());
+    }
+
     /**
      * 获取当前的验证码
      *
@@ -156,7 +173,7 @@ public abstract class Captcha extends Randoms {
      */
     public void drawLine(int num, Color color, Graphics2D g) {
         for (int i = 0; i < num; i++) {
-            g.setColor(color == null ? color(150, 250) : color);
+            g.setColor(color == null ? color() : color);
             int x1 = num(-10, width - 10);
             int y1 = num(5, height - 5);
             int x2 = num(10, width + 10);
@@ -172,10 +189,7 @@ public abstract class Captcha extends Randoms {
      * @param g   Graphics2D
      */
     public void drawOval(int num, Graphics2D g) {
-        for (int i = 0; i < num; i++) {
-            g.setColor(color(100, 250));
-            g.drawOval(num(width), num(height), 10 + num(20), 10 + num(20));
-        }
+        drawOval(num, null, g);
     }
 
     /**
@@ -187,8 +201,9 @@ public abstract class Captcha extends Randoms {
      */
     public void drawOval(int num, Color color, Graphics2D g) {
         for (int i = 0; i < num; i++) {
-            g.setColor(color == null ? color(100, 250) : color);
-            g.drawOval(num(width), num(height), 10 + num(20), 10 + num(20));
+            g.setColor(color == null ? color() : color);
+            int w = 5 + num(10);
+            g.drawOval(num(width - 25), num(height - 15), w, w);
         }
     }
 
@@ -212,19 +227,20 @@ public abstract class Captcha extends Randoms {
     public void drawBesselLine(int num, Color color, Graphics2D g) {
         for (int i = 0; i < num; i++) {
             g.setColor(color == null ? color() : color);
-            int x1 = 5;
-            int y1 = num(5, height - 5);
-            int x2 = width - 5;
-            int y2 = num(5, height - 5);
-            int ctrlx = num(5, width - 5);
-            int ctrly = num(5, height - 5);
+            int x1 = 5, y1 = num(5, height / 2);
+            int x2 = width - 5, y2 = num(height / 2, height - 5);
+            int ctrlx = num(width / 4, width / 4 * 3), ctrly = num(5, height - 5);
+            if (num(2) == 0) {
+                int ty = y1;
+                y1 = y2;
+                y2 = ty;
+            }
             if (num(2) == 0) {  // 二阶贝塞尔曲线
                 QuadCurve2D shape = new QuadCurve2D.Double();
                 shape.setCurve(x1, y1, ctrlx, ctrly, x2, y2);
                 g.draw(shape);
             } else {  // 三阶贝塞尔曲线
-                int ctrlx1 = num(5, width - 5);
-                int ctrly1 = num(5, height - 5);
+                int ctrlx1 = num(width / 4, width / 4 * 3), ctrly1 = num(5, height - 5);
                 CubicCurve2D shape = new CubicCurve2D.Double(x1, y1, ctrlx, ctrly, ctrlx1, ctrly1, x2, y2);
                 g.draw(shape);
             }
@@ -247,7 +263,11 @@ public abstract class Captcha extends Randoms {
     }
 
     public void setFont(int font) throws IOException, FontFormatException {
-        setFont(font, Font.BOLD, 32f);
+        setFont(font, 32f);
+    }
+
+    public void setFont(int font, float size) throws IOException, FontFormatException {
+        setFont(font, Font.BOLD, size);
     }
 
     public void setFont(int font, int style, float size) throws IOException, FontFormatException {

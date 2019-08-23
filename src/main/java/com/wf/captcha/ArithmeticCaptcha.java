@@ -1,35 +1,34 @@
 package com.wf.captcha;
 
-import com.wf.captcha.base.Captcha;
+import com.wf.captcha.base.ArithmeticCaptchaAbstract;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import javax.imageio.ImageIO;
-
 /**
  * png格式验证码
  * Created by 王帆 on 2018-07-27 上午 10:08.
  */
-public class SpecCaptcha extends Captcha {
+public class ArithmeticCaptcha extends ArithmeticCaptchaAbstract {
 
-    public SpecCaptcha() {
+    public ArithmeticCaptcha() {
     }
 
-    public SpecCaptcha(int width, int height) {
+    public ArithmeticCaptcha(int width, int height) {
         this();
         setWidth(width);
         setHeight(height);
     }
 
-    public SpecCaptcha(int width, int height, int len) {
+    public ArithmeticCaptcha(int width, int height, int len) {
         this(width, height);
         setLen(len);
     }
 
-    public SpecCaptcha(int width, int height, int len, Font font) {
+    public ArithmeticCaptcha(int width, int height, int len, Font font) {
         this(width, height, len);
         setFont(font);
     }
@@ -42,7 +41,8 @@ public class SpecCaptcha extends Captcha {
      */
     @Override
     public boolean out(OutputStream out) {
-        return graphicsImage(textChar(), out);
+        checkAlpha();
+        return graphicsImage(getArithmeticString().toCharArray(), out);
     }
 
     @Override
@@ -68,14 +68,11 @@ public class SpecCaptcha extends Captcha {
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             // 画干扰圆
             drawOval(2, g2d);
-            // 画干扰线
-            g2d.setStroke(new BasicStroke(2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL));
-            drawBesselLine(1, g2d);
             // 画字符串
             g2d.setFont(getFont());
             FontMetrics fontMetrics = g2d.getFontMetrics();
             int fW = width / strs.length;  // 每一个字符所占的宽度
-            int fSp = (fW - (int) fontMetrics.getStringBounds("W", g2d).getWidth()) / 2;  // 字符的左右边距
+            int fSp = (fW - (int) fontMetrics.getStringBounds("8", g2d).getWidth()) / 2;  // 字符的左右边距
             for (int i = 0; i < strs.length; i++) {
                 g2d.setColor(color());
                 int fY = height - ((height - (int) fontMetrics.getStringBounds(String.valueOf(strs[i]), g2d).getHeight()) >> 1);  // 文字的纵坐标

@@ -5,48 +5,54 @@
 
 
 ## 1.简介
+&emsp;Java图形验证码，支持gif、中文、算术等类型，可用于Java Web、JavaSE等项目。
 
-&emsp;&emsp;Java图形验证码，支持gif验证码、中文验证码，可用于Java Web、JavaSE项目。
-
+---
 
 ## 2.效果展示
 
-**gif效果：**
-
-![验证码](https://ws1.sinaimg.cn/large/006a7GCKly1ftpd30vgc2g303m01c0st.jpg) 
+![验证码](https://s2.ax1x.com/2019/08/23/msFrE8.png) 
 &emsp;&emsp;
-![验证码](https://ws1.sinaimg.cn/large/006a7GCKly1ftpd22ixh9g303m01c3yj.jpg)
+![验证码](https://s2.ax1x.com/2019/08/23/msF0DP.png)
 &emsp;&emsp;
-![验证码](https://ws1.sinaimg.cn/large/006a7GCKly1ftpd2k0gjug303m01ct8t.jpg)
-
-**png效果：**
-
-![验证码](https://ws1.sinaimg.cn/large/006a7GCKly1ftpd09lqpaj303m01cwee.jpg)
+![验证码](https://s2.ax1x.com/2019/08/23/msFwut.png)
+<br/>
+![验证码](https://s2.ax1x.com/2019/08/23/msFzVK.gif) 
 &emsp;&emsp;
-![验证码](https://ws1.sinaimg.cn/large/006a7GCKly1ftpd0tj6nhj303m01ct8m.jpg)
+![验证码](https://s2.ax1x.com/2019/08/23/msFvb6.gif)
 &emsp;&emsp;
-![验证码](https://ws1.sinaimg.cn/large/006a7GCKly1ftpd1cw3pcj303m01c0sn.jpg)
+![验证码](https://s2.ax1x.com/2019/08/23/msFXK1.gif)
 
+**算术类型：**
 
-**中文验证码：**
-
-![验证码](https://ws1.sinaimg.cn/large/006a7GCKly1ftovnvbgx6g303m01cjrc.jpg)
+![验证码](https://s2.ax1x.com/2019/08/23/mskKPg.png)
 &emsp;&emsp;
-![验证码](https://ws1.sinaimg.cn/large/006a7GCKly1ftovojp2gng303m01cq2w.jpg)
+![验证码](https://s2.ax1x.com/2019/08/23/msknIS.png)
 &emsp;&emsp;
-![验证码](https://ws1.sinaimg.cn/large/006a7GCKly1ftovp5u4c4g303m01cdft.jpg)
+![验证码](https://s2.ax1x.com/2019/08/23/mskma8.png)
 
-![验证码](https://ws1.sinaimg.cn/large/006a7GCKly1ftovmfxg71j303m01cq2s.jpg)
+**中文类型：**
+
+![验证码](https://s2.ax1x.com/2019/08/23/mskcdK.png)
 &emsp;&emsp;
-![验证码](https://ws1.sinaimg.cn/large/006a7GCKly1ftovmy720dj303m01cq2s.jpg)
+![验证码](https://s2.ax1x.com/2019/08/23/msk6Z6.png)
 &emsp;&emsp;
-![验证码](https://ws1.sinaimg.cn/large/006a7GCKly1ftovn68um6j303m01cglf.jpg)
+![验证码](https://s2.ax1x.com/2019/08/23/msksqx.png)
+
+**内置字体：**
+
+![验证码](https://s2.ax1x.com/2019/08/23/msAVSJ.png)
+&emsp;&emsp;
+![验证码](https://s2.ax1x.com/2019/08/23/msAAW4.png)
+&emsp;&emsp;
+![验证码](https://s2.ax1x.com/2019/08/23/msAkYF.png)
 
 
+---
 
 ## 3.导入项目
 
-### 2.1.gradle方式的引入
+### 3.1.gradle方式的引入
 需要先在project的build.gradle中添加：
 ```text
 allprojects {
@@ -58,11 +64,11 @@ allprojects {
 在项目的build.gradle中添加
 ```text
 dependencies {
-    compile 'com.github.whvcse:EasyCaptcha:1.5.0'
+    compile 'com.github.whvcse:EasyCaptcha:1.6.0'
 }
 ```
 
-### 2.2.maven方式引入
+### 3.2.maven方式引入
 在你的pom.xml中添加如下代码：
 ```xml
 <project>
@@ -77,33 +83,49 @@ dependencies {
        <dependency>
           <groupId>com.github.whvcse</groupId>
           <artifactId>EasyCaptcha</artifactId>
-          <version>1.5.0</version>
+          <version>1.6.0</version>
        </dependency>
     </dependencies>
 </project>
-
 ```
 
-### 2.3.jar包下载
-[EasyCaptcha-1.5.0.jar](https://gitee.com/whvse/EasyCaptcha/releases)
+### 3.3.jar包下载
+[EasyCaptcha-1.6.0.jar](https://gitee.com/whvse/EasyCaptcha/releases)
 
 maven导入jar包，在项目根目录创建`libs`文件夹，然后pom.xml添加如下：
 ```
 <dependency>
   <groupId>com.github.whvcse</groupId>
   <artifactId>EasyCaptcha</artifactId>
-  <version>1.5.0</version>
-  <systemPath>${basedir}/libs/EasyCaptcha-1.5.0.jar</systemPath>
+  <version>1.6.0</version>
+  <systemPath>${basedir}/libs/EasyCaptcha-1.6.0.jar</systemPath>
 </dependency>
 ```
 
 ---
 
+## 4.使用方法
 
-## 3.使用方法
+### 4.1.在SpringMVC中使用
+```java
+@Controller
+public class CaptchaController {
+    
+    @RequestMapping("/captcha")
+    public void captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        CaptchaUtil.out(request, response);
+    }
+}
+```
+前端html代码：
+```html
+<img src="/captcha" width="130px" height="48px" />
+```
 
-### 3.1.快速使用
-1.在web.xml里面加入如下配置：
+> 不要忘了把`/captcha`路径排除登录拦截，比如shiro的拦截。
+
+### 4.2.在servlet中使用
+web.xml中配置servlet：
 ```xml
 <web-app>
     <!-- 图形验证码servlet -->
@@ -113,163 +135,130 @@ maven导入jar包，在项目根目录创建`libs`文件夹，然后pom.xml添�
     </servlet>
     <servlet-mapping>
         <servlet-name>CaptchaServlet</servlet-name>
-        <url-pattern>/images/captcha</url-pattern>
+        <url-pattern>/captcha</url-pattern>
     </servlet-mapping>
 </web-app>
 
 ```
-2.前端代码
+前端html代码：
 ```html
-<img src="/images/captcha" />
+<img src="/captcha" width="130px" height="48px" />
 ```
 
-### 3.2.在SpringMVC中使用
-也可以使用controller的形式输出验证码，方法如下：
-```java
-@Controller
-public class MainController {
-    
-    @RequestMapping("/images/captcha")
-    public void captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        CaptchaUtil.out(request, response);
-    }
-}
-```
-前端代码：
-```html
-<img src="/images/captcha" />
-```
-
-### 3.3.判断验证码是否正确
+### 4.3.判断验证码是否正确
 
 ```java
 @Controller
 public class LoginController {
     
     @PostMapping("/login")
-    public JsonResult login(String username,String password,String code){
-        
-        if (!CaptchaUtil.ver(code, request)) {
-            CaptchaUtil.clear(request);
+    public JsonResult login(String username,String password,String verCode){
+        if (!CaptchaUtil.ver(verCode, request)) {
+            CaptchaUtil.clear(request);  // 清除session中的验证码
             return JsonResult.error("验证码不正确");
         }
     }   
 }
 ```
 
-### 3.4.设置宽高和位数
+### 4.4.设置宽高和位数
 ```java
 @Controller
-public class MainController {
+public class CaptchaController {
     
-    @RequestMapping("/images/captcha")
+    @RequestMapping("/captcha")
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // 设置位数
         CaptchaUtil.out(5, request, response);
-        
         // 设置宽、高、位数
         CaptchaUtil.out(130, 48, 5, request, response);
+        
+        // 使用gif验证码
+        GifCaptcha gifCaptcha = new GifCaptcha(130,48,4);
+        CaptchaUtil.out(gifCaptcha, request, response);
     }
 }
 ```
 
-### 3.5.不使用工具类
-
-&emsp;&emsp;CaptchaUtil是为了简化操作，封装了生成验证码、存session、判断验证码等功能。CaptchaUtil使用的GifCaptcha
-生成的字母数字混合的gif验证码，如果需要设置更多的参数，请参照如下操作使用：
+### 4.5.不使用工具类
+&emsp;CaptchaUtil封装了输出验证码、存session、判断验证码等功能，也可以不使用此工具类：
 
 ```java
 @Controller
-public class MainController {
+public class CaptchaController {
     
-    @RequestMapping("/images/captcha")
+    @RequestMapping("/captcha")
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // 设置请求头为输出图片类型
-        CaptchaUtil.setHeader(response);
+        response.setContentType("image/gif");
+        response.setHeader("Pragma", "No-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expires", 0);
         
         // 三个参数分别为宽、高、位数
-        GifCaptcha gifCaptcha = new GifCaptcha(130, 48, 5);
-        
+        SpecCaptcha specCaptcha = new SpecCaptcha(130, 48, 5);
         // 设置字体
-        gifCaptcha.setFont(new Font("Verdana", Font.PLAIN, 32));  // 有默认字体，可以不用设置
-        
+        specCaptcha.setFont(new Font("Verdana", Font.PLAIN, 32));  // 有默认字体，可以不用设置
         // 设置类型，纯数字、纯字母、字母数字混合
-        gifCaptcha.setCharType(Captcha.TYPE_ONLY_NUMBER);
+        specCaptcha.setCharType(Captcha.TYPE_ONLY_NUMBER);
         
         // 验证码存入session
-        request.getSession().setAttribute("captcha", gifCaptcha.text().toLowerCase());
+        request.getSession().setAttribute("captcha", specCaptcha.text().toLowerCase());
         
         // 输出图片流
-        gifCaptcha.out(response.getOutputStream());
+        specCaptcha.out(response.getOutputStream());
     }
     
     @PostMapping("/login")
-    public JsonResult login(String username,String password,String code){
+    public JsonResult login(String username,String password,String verCode){
         // 获取session中的验证码
         String sessionCode = request.getSession().getAttribute("captcha");
         // 判断验证码
-        if (code==null || !sessionCode.equals(code.trim().toLowerCase())) {
+        if (verCode==null || !sessionCode.equals(verCode.trim().toLowerCase())) {
             return JsonResult.error("验证码不正确");
         }
     }  
 }
 ```
 
-## 4.更多设置
+## 5.更多设置
 
-### 4.1.使用Gif验证码
-
-```java
-public class Test {
-    
-    public static void main(String[] args) {
-        OutputStream outputStream = new FileOutputStream(new File("D:/a/aa.gif"));
-        
-        // 三个参数分别为宽、高、位数
-        GifCaptcha gifCaptcha = new GifCaptcha(130, 48, 5);
-        
-        // 设置字体
-        gifCaptcha.setFont(new Font("Verdana", Font.PLAIN, 32));  // 有默认字体，可以不用设置
-        
-        // 设置类型，纯数字、纯字母、字母数字混合
-        gifCaptcha.setCharType(Captcha.TYPE_ONLY_NUMBER);
-        
-        // 生成的验证码
-        String code = gifCaptcha.text();
-        
-        // 输出图片流
-        gifCaptcha.out(outputStream);
-    }
-}
-```
-
-### 4.2.使用png验证码
+### 5.1.验证码类型
 
 ```java
 public class Test {
     
     public static void main(String[] args) {
-        OutputStream outputStream = new FileOutputStream(new File("D:/a/aa.png"));
+        // png类型
+        SpecCaptcha captcha = new SpecCaptcha(130, 48, 5);
+        captcha.text();  // 获取验证码的字符
+        captcha.textChar();  // 获取验证码的字符数组
         
-        // 三个参数分别为宽、高、位数
-        SpecCaptcha specCaptcha = new SpecCaptcha(130, 48, 5);
+        // gif类型
+        GifCaptcha captcha = new GifCaptcha(130, 48, 5);
         
-        // 设置字体
-        specCaptcha.setFont(new Font("Verdana", Font.PLAIN, 32));  // 有默认字体，可以不用设置
+        // 中文类型
+        ChineseCaptcha captcha = new ChineseCaptcha(130, 48, 5);
         
-        // 设置类型，纯数字、纯字母、字母数字混合
-        specCaptcha.setCharType(Captcha.TYPE_ONLY_NUMBER);
+        // 中文gif类型
+        ChineseGifCaptcha captcha = new ChineseGifCaptcha(130, 48, 5);
         
-        // 生成的验证码
-        String code = specCaptcha.text();
+        // 算术类型
+        ArithmeticCaptcha captcha = new ArithmeticCaptcha(130, 48, 5);
+        captcha.setLen(3);  // 几位数运算，默认是两位
+        captcha.getArithmeticString();  // 获取运算的公式：3+2=?
+        captcha.text();  // 获取运算的结果：5
         
-        // 输出图片流
-        specCaptcha.out(outputStream);
+        captcha.out(outputStream);  // 输出验证码
     }
 }
 ```
 
-### 4.3.验证码类型
+> 注意：<br/>
+> &emsp;算术验证码的len表示是几位数运算，而其他验证码的len表示验证码的位数，算术验证码的text()表示的是公式的结果，
+> 对于算术验证码，你应该把公式的结果存储session，而不是公式。
+
+### 5.2.验证码字符类型
 
  类型 | 描述 
  :--- | :--- 
@@ -280,60 +269,145 @@ public class Test {
  TYPE_ONLY_LOWER | 纯小写字母
  TYPE_NUM_AND_UPPER | 数字和大写字母
 
-
-### 4.4.中文验证码
-
-中文png验证码：
-
-```java
-public class Test {
-    
-    public static void main(String[] args) {
-        OutputStream outputStream = new FileOutputStream(new File("D:/a/aa.png"));
-        
-        // 三个参数分别为宽、高、位数
-        ChineseCaptcha chineseCaptcha = new ChineseCaptcha(130, 48, 4);
-        
-        // 设置字体
-        chineseCaptcha.setFont(new Font("楷体", Font.PLAIN, 28));  // 有默认字体，可以不用设置
-
-        // 生成的验证码
-        String code = chineseCaptcha.text();
-        
-        // 输出图片流
-        chineseCaptcha.out(outputStream);
-    }
-}
+使用方法：
+```
+SpecCaptcha captcha = new SpecCaptcha(130, 48, 5);
+captcha.setCharType(Captcha.TYPE_ONLY_NUMBER);
 ```
 
-中文gif验证码：
+> 只有`SpecCaptcha`和`GifCaptcha`设置才有效果。
 
-```java
-public class Test {
-    
-    public static void main(String[] args) {
-        OutputStream outputStream = new FileOutputStream(new File("D:/a/aa.png"));
-        
-        // 三个参数分别为宽、高、位数
-        ChineseGifCaptcha chineseGifCaptcha = new ChineseGifCaptcha(130, 48, 4);
-        
-        // 设置字体
-        chineseGifCaptcha.setFont(new Font("楷体", Font.PLAIN, 28));  // 有默认字体，可以不用设置
+### 5.3.字体设置
+内置字体：
 
-        // 生成的验证码
-        String code = chineseGifCaptcha.text();
-        
-        // 输出图片流
-        chineseGifCaptcha.out(outputStream);
-    }
-}
+ 字体 | 效果 
+ :--- | :--- 
+ Captcha.FONT_1 |  ![](https://s2.ax1x.com/2019/08/23/msMe6U.png)
+ Captcha.FONT_2 | ![](https://s2.ax1x.com/2019/08/23/msMAf0.png)
+ Captcha.FONT_3 |  ![](https://s2.ax1x.com/2019/08/23/msMCwj.png)
+ Captcha.FONT_4 | ![](https://s2.ax1x.com/2019/08/23/msM9mQ.png)
+ Captcha.FONT_5 | ![](https://s2.ax1x.com/2019/08/23/msKz6S.png)
+ Captcha.FONT_6 | ![](https://s2.ax1x.com/2019/08/23/msKxl8.png)
+ Captcha.FONT_7 | ![](https://s2.ax1x.com/2019/08/23/msMPTs.png)
+ Captcha.FONT_8 | ![](https://s2.ax1x.com/2019/08/23/msMmXF.png)
+ Captcha.FONT_9 | ![](https://s2.ax1x.com/2019/08/23/msMVpV.png)
+ Captcha.FONT_10 | ![](https://s2.ax1x.com/2019/08/23/msMZlT.png)
+
+使用方法：
+```
+SpecCaptcha captcha = new SpecCaptcha(130, 48, 5);
+
+// 设置内置字体
+captcha.setFont(Captcha.FONT_1); 
+
+// 设置系统字体
+captcha.setFont(new Font("楷体", Font.PLAIN, 28)); 
 ```
 
-### 4.5.前后端分离项目的使用
+### 5.4.输出base64编码
+```
+SpecCaptcha specCaptcha = new SpecCaptcha(130, 48, 5);
+specCaptcha.toBase64();
 
-&emsp;&emsp;分离项目建议不要存储在session中，存储在redis中。
+// 如果不想要base64的头部data:image/png;base64,
+specCaptcha.toBase64("");  // 加一个空的参数即可
+```
 
+### 5.5.输出到文件
+```
+FileOutputStream outputStream = new FileOutputStream(new File("C:/captcha.png"))
+SpecCaptcha specCaptcha = new SpecCaptcha(130, 48, 5);
+specCaptcha.out(outputStream);
+```
 
-## 5.自定义效果
+---
 
-参考源代码中的SpecCaptcha和GifCaptcha继承Captcha即可。
+## 6.前后端分离项目的使用
+
+&emsp;前后端分离项目建议不要存储在session中，存储在redis中，redis存储需要一个key，key一同返回给前端用于验证输入：
+```java
+@Controller
+public class CaptchaController {
+    @Autowired
+    private RedisUtil redisUtil;
+    
+    @ResponseBody
+    @RequestMapping("/captcha")
+    public JsonResult captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        SpecCaptcha specCaptcha = new SpecCaptcha(130, 48, 5);
+        String verCode = specCaptcha.text().toLowerCase();
+        String key = UUID.randomUUID().toString();
+        // 存入redis并设置过期时间为30分钟
+        redisUtil.setEx(key, verCode, 30, TimeUnit.MINUTES);
+        // 将key和base64返回给前端
+        return JsonResult.ok().put("key", key).put("image", specCaptcha.toBase64());
+    }
+    
+    @ResponseBody
+    @PostMapping("/login")
+    public JsonResult login(String username,String password,String verCode,String verKey){
+        // 获取redis中的验证码
+        String redisCode = redisUtil.get(verKey);
+        // 判断验证码
+        if (verCode==null || !redisCode.equals(verCode.trim().toLowerCase())) {
+            return JsonResult.error("验证码不正确");
+        }
+    }  
+}
+```
+前端使用ajax获取验证码：
+```html
+<img id="verImg" />
+
+<script>
+    var verKey;
+    // 获取验证码
+    $.get('/captcha', function(res) {
+        verKey = res.key;
+        $('#verImg').attr('src', res.image);
+    },'json');
+    
+    // 登录
+    $.post('/login', {
+        verKey: verKey,
+        verCode: '8u6h',
+        username: 'admin'，
+        password: 'admin'
+    }, function(res) {
+        console.log(res);
+    }, 'json');
+    </script>
+```
+
+> RedisUtil到这里获取[https://gitee.com/whvse/RedisUtil](https://gitee.com/whvse/RedisUtil)
+
+---
+
+## 7.自定义效果
+
+&emsp;继承`Captcha`实现`out`方法，中文验证码可继承`ChineseCaptchaAbstract`，算术验证码可继承`ArithmeticCaptchaAbstract`。
+
+---
+
+## 8.更新日志
+
+- **2019-08-23 (v1.6.0)**
+    - 增加10种漂亮的内置字体，不依赖系统字体
+    
+    - 增加算术验证码，运算位数可自由配置
+    - 增加输出base64编码的功能
+    - 增加贝塞尔曲线作为干扰线
+    
+- **2018-08-09 (v1.5.0)**
+    - 增加纯大写字母、纯小写字母、数字和大写字母配置
+    
+    - 增加中文验证码、中文gif验证码
+    - 增加抗锯齿效果，优化文字颜色
+    - 增加CaptchaUtil便于Web项目使用
+
+---
+
+## 9.推荐
+&emsp;**EasyWeb管系统模板**，一个开箱即用的后台模板，使用简单，功能丰富，包含ifram版和spa单页面版，[前往查看](https://easyweb.vip)。
+
+![](https://s2.ax1x.com/2019/08/23/msiO78.png)
