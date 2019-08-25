@@ -64,7 +64,7 @@ allprojects {
 在项目的build.gradle中添加
 ```text
 dependencies {
-    compile 'com.github.whvcse:EasyCaptcha:1.6.0'
+    compile 'com.github.whvcse:EasyCaptcha:1.6.1'
 }
 ```
 
@@ -83,22 +83,22 @@ dependencies {
        <dependency>
           <groupId>com.github.whvcse</groupId>
           <artifactId>EasyCaptcha</artifactId>
-          <version>1.6.0</version>
+          <version>1.6.1</version>
        </dependency>
     </dependencies>
 </project>
 ```
 
 ### 3.3.jar包下载
-[EasyCaptcha-1.6.0.jar](https://gitee.com/whvse/EasyCaptcha/releases)
+[EasyCaptcha-1.6.1.jar](https://gitee.com/whvse/EasyCaptcha/releases)
 
 maven导入jar包，在项目根目录创建`libs`文件夹，然后pom.xml添加如下：
 ```
 <dependency>
   <groupId>com.github.whvcse</groupId>
   <artifactId>EasyCaptcha</artifactId>
-  <version>1.6.0</version>
-  <systemPath>${basedir}/libs/EasyCaptcha-1.6.0.jar</systemPath>
+  <version>1.6.1</version>
+  <systemPath>${basedir}/libs/EasyCaptcha-1.6.1.jar</systemPath>
 </dependency>
 ```
 
@@ -230,21 +230,21 @@ public class Test {
     
     public static void main(String[] args) {
         // png类型
-        SpecCaptcha captcha = new SpecCaptcha(130, 48, 5);
+        SpecCaptcha captcha = new SpecCaptcha(130, 48);
         captcha.text();  // 获取验证码的字符
         captcha.textChar();  // 获取验证码的字符数组
         
         // gif类型
-        GifCaptcha captcha = new GifCaptcha(130, 48, 5);
+        GifCaptcha captcha = new GifCaptcha(130, 48);
         
         // 中文类型
-        ChineseCaptcha captcha = new ChineseCaptcha(130, 48, 5);
+        ChineseCaptcha captcha = new ChineseCaptcha(130, 48);
         
         // 中文gif类型
-        ChineseGifCaptcha captcha = new ChineseGifCaptcha(130, 48, 5);
+        ChineseGifCaptcha captcha = new ChineseGifCaptcha(130, 48);
         
         // 算术类型
-        ArithmeticCaptcha captcha = new ArithmeticCaptcha(130, 48, 5);
+        ArithmeticCaptcha captcha = new ArithmeticCaptcha(130, 48);
         captcha.setLen(3);  // 几位数运算，默认是两位
         captcha.getArithmeticString();  // 获取运算的公式：3+2=?
         captcha.text();  // 获取运算的结果：5
@@ -357,7 +357,7 @@ public class CaptchaController {
 ```
 前端使用ajax获取验证码：
 ```html
-<img id="verImg" />
+<img id="verImg" width="130px" height="48px"/>
 
 <script>
     var verKey;
@@ -376,7 +376,7 @@ public class CaptchaController {
     }, function(res) {
         console.log(res);
     }, 'json');
-    </script>
+</script>
 ```
 
 > RedisUtil到这里获取[https://gitee.com/whvse/RedisUtil](https://gitee.com/whvse/RedisUtil)
@@ -391,7 +391,7 @@ public class CaptchaController {
 
 ## 8.更新日志
 
-- **2019-08-23 (v1.6.0)**
+- **2019-08-23 (v1.6.1)**
     - 增加10种漂亮的内置字体，不依赖系统字体
     
     - 增加算术验证码，运算位数可自由配置

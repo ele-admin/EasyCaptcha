@@ -115,7 +115,7 @@ public class CaptchaUtil {
      * @param response HttpServletResponse
      * @throws IOException IO异常
      */
-    private static void out(Captcha captcha, HttpServletRequest request, HttpServletResponse response)
+    public static void out(Captcha captcha, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         setHeader(response);
         request.getSession().setAttribute(SESSION_KEY, captcha.text().toLowerCase());
