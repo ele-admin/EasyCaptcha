@@ -271,7 +271,7 @@ public abstract class Captcha extends Randoms {
     }
 
     public void setFont(int font, int style, float size) throws IOException, FontFormatException {
-        this.font = Font.createFont(Font.TRUETYPE_FONT, new File(getClass().getResource("/" + FONT_NAMES[font]).getFile())).deriveFont(style, size);
+        this.font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/" + FONT_NAMES[font])).deriveFont(style, size);
     }
 
     public int getLen() {

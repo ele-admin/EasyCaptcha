@@ -5,7 +5,7 @@
     <groupId>org.wf</groupId>
 
     <artifactId>easy-captcha</artifactId>
-    <version>1.6.1-RELEASE</version>
+    <version>1.6.2-RELEASE</version>
     <packaging>jar</packaging>
 
     <name>EasyCaptcha</name>
