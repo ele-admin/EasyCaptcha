@@ -1,6 +1,6 @@
 # EasyCaptcha
 
-![MavenCentral](https://img.shields.io/maven-central/v/com.github.whvcse/easy-captcha)
+![MavenCentral](https://img.shields.io/maven-central/v/com.github.whvcse/easy-captcha?style=flat-square)
 ![Hex.pm](https://img.shields.io/hexpm/l/plug.svg?style=flat-square)
 
 
