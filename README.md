@@ -1,6 +1,6 @@
 # EasyCaptcha
 
-![JitPack](https://img.shields.io/jitpack/v/whvcse/EasyCaptcha.svg?style=flat-square)
+![MavenCentral](https://img.shields.io/maven-central/v/com.github.whvcse/easy-captcha)
 ![Hex.pm](https://img.shields.io/hexpm/l/plug.svg?style=flat-square)
 
 
@@ -53,52 +53,33 @@
 ## 3.导入项目
 
 ### 3.1.gradle方式的引入
-需要先在project的build.gradle中添加：
-```text
-allprojects {
-    repositories {
-        maven { url 'https://jitpack.io' }
-    }
-}
-```
-在项目的build.gradle中添加
 ```text
 dependencies {
-    compile 'com.github.whvcse:EasyCaptcha:1.6.2'
+    compile 'com.github.whvcse:easy-captcha:1.6.2'
 }
 ```
 
 ### 3.2.maven方式引入
-在你的pom.xml中添加如下代码：
 ```xml
-<project>
-    <repositories>
-        <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-        </repository>
-    </repositories>
-    
-    <dependencies>
-       <dependency>
-          <groupId>com.github.whvcse</groupId>
-          <artifactId>EasyCaptcha</artifactId>
-          <version>1.6.2</version>
-       </dependency>
-    </dependencies>
-</project>
+<dependencies>
+   <dependency>
+      <groupId>com.github.whvcse</groupId>
+      <artifactId>easy-captcha</artifactId>
+      <version>1.6.2</version>
+   </dependency>
+</dependencies>
 ```
 
 ### 3.3.jar包下载
-[EasyCaptcha-1.6.2.jar](https://gitee.com/whvse/EasyCaptcha/releases)
+[easy-captcha-1.6.2.jar](https://gitee.com/whvse/EasyCaptcha/releases)
 
 maven导入jar包，在项目根目录创建`libs`文件夹，然后pom.xml添加如下：
 ```
 <dependency>
   <groupId>com.github.whvcse</groupId>
-  <artifactId>EasyCaptcha</artifactId>
+  <artifactId>easy-captcha</artifactId>
   <version>1.6.1</version>
-  <systemPath>${basedir}/libs/EasyCaptcha-1.6.2.jar</systemPath>
+  <systemPath>${basedir}/libs/easy-captcha-1.6.2.jar</systemPath>
 </dependency>
 ```
 

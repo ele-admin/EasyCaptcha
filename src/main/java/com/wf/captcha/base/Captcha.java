@@ -1,14 +1,12 @@
 package com.wf.captcha.base;
 
-import sun.misc.BASE64Encoder;
-
 import java.awt.*;
 import java.awt.geom.CubicCurve2D;
 import java.awt.geom.QuadCurve2D;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Base64;
 
 /**
  * 验证码抽象类
@@ -111,18 +109,23 @@ public abstract class Captcha extends Randoms {
      */
     public abstract boolean out(OutputStream os);
 
+    /**
+     * 输出base64编码
+     *
+     * @return base64编码字符串
+     */
     public abstract String toBase64();
 
     /**
      * 输出base64编码
      *
      * @param type 编码头
-     * @return
+     * @return base64编码字符串
      */
     public String toBase64(String type) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         out(outputStream);
-        return type + new BASE64Encoder().encode(outputStream.toByteArray());
+        return type + Base64.getEncoder().encodeToString(outputStream.toByteArray());
     }
 
     /**
