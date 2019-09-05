@@ -308,4 +308,12 @@ public abstract class Captcha extends Randoms {
     public void setCharType(int charType) {
         this.charType = charType;
     }
+
+    /**
+     * 设置自定义验证码，使用方来确保验证码的随机性，比如，使用方有一个需要需要根据用户的账号或者手机号随机几位来生成验证码，就可以通过该方法设置验证码，来实现该需求
+     * @param chars
+     */
+    public void setChars(String chars) {
+        this.chars = chars;
+    }
 }
