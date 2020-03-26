@@ -229,8 +229,10 @@ public class Test {
         captcha.setLen(3);  // 几位数运算，默认是两位
         captcha.getArithmeticString();  // 获取运算的公式：3+2=?
         captcha.text();  // 获取运算的结果：5
-        
+        captcha.supportAlgorithmSign(2); // 可设置支持的算法：2 表示只生成带加减法的公式
+        captcha.setDifficulty(50); // 设置计算难度，参与计算的每一个整数的最大值
         captcha.out(outputStream);  // 输出验证码
+        //简单算术类型 SimpleArithmeticCaptcha,用法同ArithmeticCaptcha,只支持加减，计算结果为正整数
     }
 }
 ```

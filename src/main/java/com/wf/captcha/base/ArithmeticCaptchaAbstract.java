@@ -11,6 +11,9 @@ import javax.script.ScriptException;
 public abstract class ArithmeticCaptchaAbstract extends Captcha {
     private String arithmeticString;  // 计算公式
 
+    protected static int difficulty = 10;
+    protected static int algorithmSign = 4;
+
     public ArithmeticCaptchaAbstract() {
         setLen(2);
     }
@@ -24,9 +27,9 @@ public abstract class ArithmeticCaptchaAbstract extends Captcha {
     protected char[] alphas() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < len; i++) {
-            sb.append(num(10));
+            sb.append(num(difficulty));
             if (i < len - 1) {
-                int type = num(1, 4);
+                int type = num(1, algorithmSign);
                 if (type == 1) {
                     sb.append("+");
                 } else if (type == 2) {
@@ -55,5 +58,19 @@ public abstract class ArithmeticCaptchaAbstract extends Captcha {
 
     public void setArithmeticString(String arithmeticString) {
         this.arithmeticString = arithmeticString;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    /**
+     * algorithmSign 2 : 支持加法
+     * algorithmSign 3 : 支持加减法
+     * algorithmSign 4 : 支持加减乘法
+     * @param algorithmSign 计算公式标示
+     */
+    public void supportAlgorithmSign(int algorithmSign){
+        this.algorithmSign = algorithmSign;
     }
 }
