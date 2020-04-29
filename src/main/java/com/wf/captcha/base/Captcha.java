@@ -117,6 +117,13 @@ public abstract class Captcha extends Randoms {
     public abstract String toBase64();
 
     /**
+     * 获取图片歌手
+     *
+     * @return 图片格式 MINI
+     */
+    public abstract String getContentType();
+
+    /**
      * 输出base64编码
      *
      * @param type 编码头

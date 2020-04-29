@@ -117,6 +117,7 @@ public class CaptchaUtil {
      */
     public static void out(Captcha captcha, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+        response.setContentType(captcha.getContentType());
         setHeader(response);
         request.getSession().setAttribute(SESSION_KEY, captcha.text().toLowerCase());
         captcha.out(response.getOutputStream());
@@ -152,7 +153,6 @@ public class CaptchaUtil {
      * @param response HttpServletResponse
      */
     public static void setHeader(HttpServletResponse response) {
-        response.setContentType("image/gif");
         response.setHeader("Pragma", "No-cache");
         response.setHeader("Cache-Control", "no-cache");
         response.setDateHeader("Expires", 0);
