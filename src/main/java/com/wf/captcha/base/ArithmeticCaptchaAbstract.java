@@ -39,7 +39,7 @@ public abstract class ArithmeticCaptchaAbstract extends Captcha {
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByName("javascript");
         try {
-            chars = String.valueOf(engine.eval(sb.toString().replaceAll("x", "*")));
+            chars = String.valueOf(engine.eval(sb.toString().replaceAll("x", "*"))).split("\\.")[0];
         } catch (ScriptException e) {
             e.printStackTrace();
         }
