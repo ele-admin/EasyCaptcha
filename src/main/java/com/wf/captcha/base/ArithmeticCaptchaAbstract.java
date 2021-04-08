@@ -1,8 +1,8 @@
 package com.wf.captcha.base;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
+//import javax.script.ScriptEngine;
+//import javax.script.ScriptEngineManager;
+//import javax.script.ScriptException;
 
 /**
  * 算术验证码抽象类
@@ -36,13 +36,17 @@ public abstract class ArithmeticCaptchaAbstract extends Captcha {
                 }
             }
         }
-        ScriptEngineManager manager = new ScriptEngineManager();
-        ScriptEngine engine = manager.getEngineByName("javascript");
-        try {
-            chars = String.valueOf(engine.eval(sb.toString().replaceAll("x", "*")));
-        } catch (ScriptException e) {
-            e.printStackTrace();
-        }
+
+//        ScriptEngineManager manager = new ScriptEngineManager();
+//        ScriptEngine engine = manager.getEngineByName("javascript");
+//        try {
+//            chars = String.valueOf(engine.eval(sb.toString().replaceAll("x", "*")));
+//        } catch (ScriptException e) {
+//            e.printStackTrace();
+//        }
+        int result = (int) Calculator.conversion(sb.toString().replaceAll("x", "*"));
+        this.chars = String.valueOf(result);
+
         sb.append("=?");
         arithmeticString = sb.toString();
         return chars.toCharArray();
