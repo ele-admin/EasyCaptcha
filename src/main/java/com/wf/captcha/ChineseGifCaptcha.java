@@ -79,6 +79,11 @@ public class ChineseGifCaptcha extends ChineseCaptchaAbstract {
         return toBase64("data:image/gif;base64,");
     }
 
+    @Override
+    public String getContentType() {
+        return "image/gif";
+    }
+
     /**
      * 画随机码图
      *

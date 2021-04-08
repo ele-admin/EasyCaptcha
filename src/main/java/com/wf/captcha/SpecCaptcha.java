@@ -50,6 +50,11 @@ public class SpecCaptcha extends Captcha {
         return toBase64("data:image/png;base64,");
     }
 
+    @Override
+    public String getContentType() {
+        return "image/png";
+    }
+
     /**
      * 生成验证码图形
      *
